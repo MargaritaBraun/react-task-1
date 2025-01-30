@@ -1,93 +1,235 @@
-// import { ReactNode, useState } from 'react';
-import { ReactNode } from 'react';
-import { Component } from 'react';
-import reactLogo from './assets/react.svg';
+import React, { ReactNode, Component } from 'react';
 import './css/App.css';
-import Header from './TopSection';
-import ResultMain from './MainComponents/resultMain';
+import Header from './topComponents/TopSection';
+// import RenderBooksInterface from './MainComponents/resultMain';
 
-import Likes from './MainComponents/likes';
-// import MyInput from './topComponents/inputTop';
-// import ButtonForSearch from './topComponents/search-btn';
+import DataFetcher from './DataFetcher';
+import FooterSection from './foooter/Footer';
+import ErrorBoundary from './ErrorBoundary';
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   state = {
     searchValue: '',
-    searchResults: null,
+    searchResults: [],
+    initResp: true,
+    error: null,
+    // hasStoredData: false, // Новый флаг для отслеживания наличия данных
+  };
+  dataFetcherRef = React.createRef<DataFetcher>();
+
+  componentDidMount() {
+    this.getLocalStorageData();
   }
 
   handleInputChange = (value: string) => {
+    // this.setState({ searchValue: value });
     this.setState({ searchValue: value });
-    // console.log(value); // Здесь вы можете использовать значение по своему усмотрению
+    console.log('value', value);
+  };
+
+  handleButtonClick = () => {
+    console.log('Button clicked, search value:', this.state.searchValue);
+    // initResp: true
+    // this.setState({ initResp: false });
+    // this.dataFetcherRef.current?.fetchData();
+    this.setState({ initResp: false }, () => {
+      this.dataFetcherRef.current?.fetchData(); // Вызов fetchData после обновления состояния
+    });
+  };
+
+  getLocalStorageData() {
+    const searchResults = localStorage.getItem('searchResults');
+    const searchValue = localStorage.getItem('searchValue');
+    if (searchResults) {
+      this.setState({
+        searchResults: JSON.parse(searchResults),
+        // hasStoredData: true, // Устанавливаем флаг, если данные есть
+      });
+      this.setState({ initResp: false });
+    }
+    if (searchValue) {
+      this.setState({ searchValue: JSON.parse(searchValue) });
+    }
   }
 
-  handleButtonClick = async () => {
-    await this.createresponse();
-    console.log('Button clicked');
+  onupdateClearLocalStori = () => {
+    console.log('For Clearning LocalStorage and delete Error');
+    this.setState({ searchValue: '', searchResults: [] });
+    this.setState({ initResp: true });
+    this.setState({ error: null });
+    // this.dataFetcherRef.current?.fetchData();
+    // this.dataFetcherRef.current?.resetData();
   };
 
-  createresponse = async () => {
-    const url = 'https://openlibrary.org/search.json?';
-    const titleString = 'title=';
-    const titleParamentes = this.state.searchValue.split(' ').join('+');
-    // const url = 'https://stapi.co/api/v1/rest/bookCollection/search';
-    const response = await fetch(`${url}${titleString}${titleParamentes}&page=2`); //await fetch(url);
-    const data = await response.json();
-    console.log(data);
-    localStorage.setItem('searchResults', JSON.stringify(data));
-    this.setState({ searchResults: data });
+  openToHorror = () => {
+    console.log('HOrrroooo rr ');
+    const errorMessage = 'This is Terrible';
+    console.error(errorMessage); // Логирование ошибки
+    this.setState({ error: errorMessage }); // Установка состояния ошибки
+    // return throw Error
   };
   render(): ReactNode {
+    // const { searchValue, searchResults } = this.state;
+    // const showDataFetcher = searchValue !== '' || searchResults.length > 0;
+    const { error, initResp, searchValue } = this.state;
     return (
-      <>
+      // <>
+      <ErrorBoundary>
         <Header
           onInputChange={this.handleInputChange}
           onButtonClick={this.handleButtonClick}
+          searchValue={this.state.searchValue} // Передаем значение инпута
         />
-        {/* <Header>
-          <MyInput onChange={this.handleInputChange} />{' '}
-          {/* Передаем onChange как пропс */}
-          {/* <ButtonForSearch onClick={this.handleButtonClick} />{' '} */}
-          {/* Передаем onChange как пропс */}
-          {/* </MyInput> */}
-        {/* </Header> */}
-        <a href="https://vitejs.dev" target="_blank" rel="noopener">
-          Hallod djg klfm
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noopener">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-        <Likes initialLikes={7} />
-        <ResultMain results={this.state.searchResults} />
-      </>
+        {/* {!this.state.initResp ? (
+            <DataFetcher
+              ref={this.dataFetcherRef}
+              searchValue={this.state.searchValue}
+            />
+          ) : (
+            <div className="no-data-message">
+              <p className="text">
+                Нет сохраненных данных. Пожалуйста, выполните поиск.
+              </p>
+            </div>
+          )}
+          <FooterSection
+            onClearLocalStori={this.onupdateClearLocalStori}
+            onError={this.openToHorror}
+          /> */}
+
+        {error ? ( // Если есть ошибка, отображаем её
+          <div className="error-message">
+            <h1>{error}</h1>
+          </div>
+        ) : !initResp ? (
+          <DataFetcher ref={this.dataFetcherRef} searchValue={searchValue} />
+        ) : (
+          <div className="no-data-message">
+            <p className="text">
+              Нет сохраненных данных. Пожалуйста, выполните поиск.
+            </p>
+          </div>
+        )}
+        <FooterSection
+          onClearLocalStori={this.onupdateClearLocalStori}
+          onError={this.openToHorror}
+        />
+      </ErrorBoundary>
+      // </>
     );
   }
-  // function App() {
-  // const [count, setCount] = useState(0);
-
-  // return (
-  //   <>
-  //     <div>
-  //       <TopSection/>
-  //       <a href="https://react.dev" target="_blank" rel="noopener">
-  //         <img src={reactLogo} className="logo react" alt="React logo" />
-  //       </a>
-  //     </div>
-  //     <h1>Vite + React</h1>
-  //     <div className="card">
-  //       <button onClick={() => setCount((count) => count + 1)}>
-  //         count is {count}
-  //       </button>
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to test HMR
-  //       </p>
-  //     </div>
-  //   </>
-  // );
 }
 
 export default App;
+
+// import { ReactNode } from 'react';
+// import { Component } from 'react';
+// import reactLogo from './assets/react.svg';
+// import './css/App.css';
+// import Header from './topComponents/TopSection';
+// // import Paginations from './MainComponents/page';
+// import RenderBooksInterface from './MainComponents/resultMain';
+
+// import DataFetcher from './DataFetcher';
+
+// class App extends Component {
+//   state = {
+//     searchValue: '',
+//     searchResults: [],
+//     // page: 1,
+//     // resultsPerPage: 10,
+//   };
+
+//   componentDidMount() {
+//     this.getLocalStorageData();
+//   }
+
+//   handleInputChange = (value: string) => {
+//     this.setState({ searchValue: value });
+//   };
+
+//   handleButtonClick = async () => {
+//     console.log('Button clicked');
+//     // await this.createresponse();
+//   };
+
+//   // strToResponce = (value: string): string => {
+//   //   const arrWords = value.trim().split(' ');
+
+//   //   if (arrWords.length === 1) {
+//   //     return arrWords[0];
+//   //   } else if (arrWords.length > 1) {
+//   //     return arrWords.join('+');
+//   //   } else {
+//   //     return '';
+//   //   }
+//   // };
+
+//   // createresponse = async () => {
+//   //   const url = 'https://openlibrary.org/search.json?';
+//   //   const titleString = 'title=';
+//   //   const titleParamentes = this.strToResponce(this.state.searchValue);
+//   //   console.log('titleParamentes', titleParamentes);
+//   //   const response = await fetch(
+//   //     `${url}${titleString}${titleParamentes}&page=2`
+//   //   );
+//   //   const data = await response.json();
+//   //   console.log(data);
+//   //   localStorage.setItem('searchResults', JSON.stringify(data.docs));
+//   //   localStorage.setItem('searchValue', JSON.stringify(this.state.searchValue));
+//   //   this.setState({ searchResults: data.docs || [], page: 1 }); // Сохраняем результаты
+//   // };
+
+//   getLocalStorageData() {
+//     const searchResults = localStorage.getItem('searchResults');
+//     const searchValue = localStorage.getItem('searchValue');
+//     if (searchResults) {
+//       this.setState({ searchResults: JSON.parse(searchResults) });
+//     }
+//     if (searchValue) {
+//       this.setState({ searchValue: JSON.parse(searchValue) });
+//     }
+//     // this.render();
+//   }
+
+//   // handlePageChange = (newPage: number) => {
+//   //   this.setState({ page: newPage });
+//   // }
+
+//   render(): ReactNode {
+//     // const { searchResults, page, resultsPerPage } = this.state;
+//     // const indexOfLastResult = page * resultsPerPage;
+//     // const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+//     // const currentResults = searchResults.slice(
+//     //   indexOfFirstResult,
+//     //   indexOfLastResult
+//     // )
+//     return (
+//       <>
+//         <Header
+//           onInputChange={this.handleInputChange}
+//           onButtonClick={this.handleButtonClick}
+//         />
+//         <a href="https://vitejs.dev" target="_blank" rel="noopener">
+//           Hallod djg klfm
+//         </a>
+//         <a href="https://react.dev" target="_blank" rel="noopener">
+//           <img src={reactLogo} className="logo react" alt="React logo" />
+//         </a>
+//         {/* <Paginations
+//           currentPage={page}
+//           onPageChange={this.handlePageChange}
+//           totalResults={searchResults.length}
+//           resultsPerPage={resultsPerPage}
+//         /> */}
+//         {/* {this.state.page } */}
+//         <DataFetcher {searchValue} >
+//         <RenderBooksInterface results={this.state.searchResults} />
+//         </DataFetcher>
+//         {/* <RenderBooksInterface results={currentResults} /> */}
+//       </>
+//     );
+//   }
+// }
+
+// export default App;
