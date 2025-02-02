@@ -67,3 +67,7 @@
   font-size: 2rem;
   color: rgb(24, 153, 10);
 }
+
+.no-data-message-error {
+  background-color: lightcoral;
+}

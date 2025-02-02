@@ -1,4 +1,3 @@
-// localStorage-btn
 import { Component } from 'react';
 
 interface btnCreateErrorInterface {
@@ -12,7 +11,6 @@ class ButtonForError extends Component<btnCreateErrorInterface> {
 
   onErrorOpen = () => {
     this.props.onClick('Error in module ButtonForError');
-    throw new Error('Я сломался!');
   };
   render() {
     return (

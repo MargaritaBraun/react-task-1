@@ -1,4 +1,3 @@
-// localStorage-btn
 import { Component } from 'react';
 
 interface btnClearlocalStorage {
@@ -11,8 +10,8 @@ class ButtonForClearlocalStorage extends Component<btnClearlocalStorage> {
   }
 
   onClearLocalStorage = () => {
-    localStorage.clear(); // Вызываем метод clear
-    this.props.onClick('LocalStorage cleared'); // Вызываем переданный метод onClick, если это необходимо
+    localStorage.clear();
+    this.props.onClick('LocalStorage cleared');
   };
   render() {
     return (

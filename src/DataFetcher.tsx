@@ -5,7 +5,6 @@ import cocktailSvg from './assets/cocktail-svgrepo-com.svg';
 
 interface DataFetcherProps {
   searchValue: string;
-  // onError: () => void;
   onError: (errorMessage: string) => void;
 }
 
@@ -13,7 +12,6 @@ interface DataFetcherState {
   data: BookInterface[];
   loading: boolean;
   error: string | null;
-  //   initialLoad: boolean;
 }
 
 class DataFetcher extends Component<DataFetcherProps, DataFetcherState> {
@@ -23,17 +21,20 @@ class DataFetcher extends Component<DataFetcherProps, DataFetcherState> {
       data: [],
       loading: false,
       error: null,
-      //   initialLoad: true,
     };
   }
 
   strToResponce = (value: string): string => {
-    console.log('trToResponce',value);
+    console.log('trToResponce', value);
     const arrWords = value.trim().split(' ');
     return arrWords.length > 1 ? arrWords.join('+') : arrWords[0] || '';
   };
 
   fetchData = async () => {
+    console.log('fetchData', this.props.searchValue);
+    if (!this.props.searchValue) {
+      throw new Error('Search value is empty');
+    }
     this.setState({ loading: true, error: null });
     try {
       const url = 'https://openlibrary.org/search.json?';
@@ -46,23 +47,17 @@ class DataFetcher extends Component<DataFetcherProps, DataFetcherState> {
       const data = await response.json();
       this.setState({ data: data.docs || [], loading: false });
 
-      // Сохраняем результаты в локальное хранилище
       localStorage.setItem('searchResults', JSON.stringify(data.docs || []));
       localStorage.setItem(
         'searchValue',
         JSON.stringify(this.props.searchValue || '')
       );
     } catch (error) {
-      // this.setState({ loading: false });
-      // const errorMessage = (error as Error).message; // Получаем сообщение об ошибке
-      console.log('в DataFetcher', error);
-      // this.props.onError(errorMessage); // Передаем ошибку в родительский компонент
-      this.props.onError((error as Error).message); // Передаем ошибку
+      this.props.onError((error as Error).message);
     }
-  }
+  };
 
   resetData = () => {
-    // this.setState({ data: [], initialLoad: true }); // Сбрасываем данные и устанавливаем начальное состояние
     return (
       <div className="no-data-message">
         <p className="text">
@@ -73,46 +68,17 @@ class DataFetcher extends Component<DataFetcherProps, DataFetcherState> {
   };
 
   componentDidMount() {
-    // Проверяем локальное хранилище при монтировании компонента
     const storedResults = localStorage.getItem('searchResults');
     if (storedResults) {
       this.setState({
         data: JSON.parse(storedResults),
         loading: false,
-        // initialLoad: false,
       });
     }
   }
-
-  //   checkInitLoad() {
-  //     const storedResults = localStorage.getItem('searchResults');
-  //     return storedResults !== null;
-  //   }
-  //   checkInitLoad() {
-  //     const storedResults = localStorage.getItem('searchResults');
-  //     if (storedResults) {
-  //         // this.setState({ initialLoad: true });
-  //         return true;
-  //     } else {
-  //         return false;
-  //     }
-  //   }
   render() {
-    //   initialLoad
     const { data, loading, error } = this.state;
 
-    //   initialLoad
-    //   if (!this.checkInitLoad() && !loading) {
-    // if (!localStorage.getItem('searchResults') && initialLoad) {
-    //   return (
-    //     <div className="no-data-message">
-    //       <p className="text">
-    //         Нет сохраненных данных. Пожалуйста, выполните поиск.
-    //       </p>
-    //     </div>
-    //   );
-    // }
-    //   if (initialLoad) { }
     if (loading) {
       return (
         <div className="load-container">

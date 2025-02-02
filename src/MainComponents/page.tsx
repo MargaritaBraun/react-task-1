@@ -10,7 +10,7 @@ interface PagesProps {
 }
 
 class Page extends Component<PagesProps> {
-  totalPages = Math.ceil(this.props.totalResults / this.props.resultsPerPage); // Общее количество страниц
+  totalPages = Math.ceil(this.props.totalResults / this.props.resultsPerPage);
 
   plusPages = () => {
     console.log(this.props.currentPage);
