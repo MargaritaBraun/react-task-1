@@ -1,35 +1,94 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { ReactNode, Component } from 'react';
+import './css/App.css';
+import Header from './topComponents/TopSection';
+import DataFetcher from './DataFetcher';
+import FooterSection from './foooter/Footer';
+import ErrorBoundary from './ErrorBoundary';
 
-function App() {
-  const [count, setCount] = useState(0)
+class App extends Component {
+  state = {
+    searchValue: '',
+    searchResults: [],
+    initResp: true,
+    isError: false,
+  };
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  dataFetcherRef = React.createRef<DataFetcher>();
+
+  componentDidMount() {
+    this.getLocalStorageData();
+  }
+
+  handleInputChange = (value: string) => {
+    this.setState({ searchValue: value });
+  };
+
+  handleButtonClick = () => {
+    this.setState({ initResp: false }, () => {
+      this.dataFetcherRef.current?.fetchData();
+    });
+  };
+
+  openToHorror = () => {
+    this.setState({ isError: true });
+    throw new Error('This is Terrible');
+  };
+
+  getLocalStorageData() {
+    const searchResults = localStorage.getItem('searchResults');
+    const searchValue = localStorage.getItem('searchValue');
+    if (searchResults) {
+      this.setState({
+        searchResults: JSON.parse(searchResults),
+        initResp: false,
+      });
+    }
+    if (searchValue) {
+      this.setState({ searchValue: JSON.parse(searchValue) });
+    }
+  }
+
+  onupdateClearLocalStori = () => {
+    console.log('For Clearning LocalStorage and delete Error');
+    this.setState({ searchValue: '', searchResults: [] });
+    this.setState({ initResp: true });
+    this.setState({ isError: false });
+  };
+  render(): ReactNode {
+      const { initResp, searchValue, isError } = this.state;
+
+    return (
+      <ErrorBoundary>
+        <Header
+          onInputChange={this.handleInputChange}
+          onButtonClick={this.handleButtonClick}
+          searchValue={searchValue}
+        />
+
+        {isError ? (
+          <div className="no-data-message no-data-message-error">
+            <h1>Что-то пошло не так.</h1>
+          </div>
+        ) : !initResp && typeof searchValue === 'string' ? (
+          <DataFetcher
+            ref={this.dataFetcherRef}
+            searchValue={searchValue}
+            onError={this.openToHorror}
+          />
+        ) : (
+          <div className="no-data-message">
+            <p className="text">
+              Нет сохраненных данных. Пожалуйста, выполните поиск.
+            </p>
+          </div>
+        )}
+        <FooterSection
+          onClearLocalStori={this.onupdateClearLocalStori}
+          onError={this.openToHorror}
+        />
+      </ErrorBoundary>
+    );
+  }
 }
 
-export default App
+export default App;
