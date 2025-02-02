@@ -27,9 +27,9 @@ class RenderBooks extends Component<RenderBooksInterface> {
           <p className="result-controls-text">Autor or autors</p>
         </div>
         {results.map((result) => {
-        const { key, ...restProps } = result;
-        return <Card key={key} {...restProps} />;
-      })}
+          const { key, ...restProps } = result;
+          return <Card key={key} {...restProps} />;
+        })}
       </div>
     );
   }

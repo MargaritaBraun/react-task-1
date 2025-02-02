@@ -30,22 +30,22 @@ class Page extends Component<PagesProps> {
 
   render() {
     return (
-      <div className='pagination'>
+      <div className="pagination">
         <h2>{this.props.currentPage}</h2>
-        <div className='pagination-container'>
-          <button 
-            type="button" 
-            onClick={this.minusPages} 
-            disabled={this.props.currentPage === 1} 
-            className='btn-page'
+        <div className="pagination-container">
+          <button
+            type="button"
+            onClick={this.minusPages}
+            disabled={this.props.currentPage === 1}
+            className="btn-page"
           >
             <img src={leftArrow} className="btn-svg" alt="left Arrow" />
           </button>
-          <button 
-            type="button" 
-            onClick={this.plusPages} 
-            disabled={this.props.currentPage === this.totalPages} 
-            className='btn-page'
+          <button
+            type="button"
+            onClick={this.plusPages}
+            disabled={this.props.currentPage === this.totalPages}
+            className="btn-page"
           >
             <img src={rightArrow} className="btn-svg" alt="right Arrow" />
           </button>

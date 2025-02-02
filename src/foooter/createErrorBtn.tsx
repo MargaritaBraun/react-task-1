@@ -16,7 +16,11 @@ class ButtonForError extends Component<btnCreateErrorInterface> {
   };
   render() {
     return (
-      <button type="button" className="btn error-button" onClick={this.onErrorOpen}>
+      <button
+        type="button"
+        className="btn error-button"
+        onClick={this.onErrorOpen}
+      >
         Error
       </button>
     );

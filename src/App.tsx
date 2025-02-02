@@ -63,15 +63,33 @@ class App extends Component {
 
   openToHorror = () => {
     console.log('HOrrroooo rr ');
-    const errorMessage = 'This is Terrible';
-    console.error(errorMessage); // Логирование ошибки
-    this.setState({ error: errorMessage }); // Установка состояния ошибки
+    // localStorage.setItem('searchResults', JSON.stringify(null));
+    // this.dataFetcherRef.current?.fetchData(); 
+    // this.setState({ searchValue: value });
+    this.setState({ searchValue: {aaanull: 934930-5} }, () => {
+      this.dataFetcherRef.current?.fetchData(); // Вызов fetchData после обновления состояния
+    });
+
+    // try {
+    //   // Ваш код, который может выбрасывать ошибку
+    //   throw new Error('Я сломался!'); // Это выбросит ошибку
+    // } catch (error) {
+    //   console.error('Ошибка поймана:', error);
+    //   this.setState({ hasError: true }); // Устанавливаем состояние ошибки
+    // }
+    throw new Error('This is Terrible'); // выбрасываем ошибку
+    // const errorMessage = 'This is Terrible';
+    // console.error(errorMessage);
+    // this.setState({ error: errorMessage }); // Устанавливаем состояние ошибки
+    // const errorMessage = 'This is Terrible';
+    // console.error(errorMessage); // Логирование ошибки
+    // this.setState({ error: errorMessage }); // Установка состояния ошибки
     // return throw Error
   };
   render(): ReactNode {
     // const { searchValue, searchResults } = this.state;
     // const showDataFetcher = searchValue !== '' || searchResults.length > 0;
-    const { error, initResp, searchValue } = this.state;
+    // const { error, initResp, searchValue } = this.state;
     return (
       // <>
       <ErrorBoundary>
@@ -80,10 +98,11 @@ class App extends Component {
           onButtonClick={this.handleButtonClick}
           searchValue={this.state.searchValue} // Передаем значение инпута
         />
-        {/* {!this.state.initResp ? (
+        {!this.state.initResp && typeof this.state.searchValue === 'string' ? (
             <DataFetcher
               ref={this.dataFetcherRef}
-              searchValue={this.state.searchValue}
+            searchValue={this.state.searchValue}
+            onError={this.openToHorror} // Передаем функцию для обработки ошибок
             />
           ) : (
             <div className="no-data-message">
@@ -92,24 +111,28 @@ class App extends Component {
               </p>
             </div>
           )}
-          <FooterSection
+          {/* <FooterSection
             onClearLocalStori={this.onupdateClearLocalStori}
             onError={this.openToHorror}
           /> */}
 
-        {error ? ( // Если есть ошибка, отображаем её
+        {/* {error ? (
           <div className="error-message">
             <h1>{error}</h1>
           </div>
         ) : !initResp ? (
-          <DataFetcher ref={this.dataFetcherRef} searchValue={searchValue} />
+          <DataFetcher
+            ref={this.dataFetcherRef}
+            searchValue={searchValue}
+            onError={this.openToHorror} // Передаем функцию для обработки ошибок
+          />
         ) : (
           <div className="no-data-message">
             <p className="text">
               Нет сохраненных данных. Пожалуйста, выполните поиск.
             </p>
           </div>
-        )}
+        )} */}
         <FooterSection
           onClearLocalStori={this.onupdateClearLocalStori}
           onError={this.openToHorror}

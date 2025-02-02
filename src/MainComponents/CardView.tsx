@@ -21,16 +21,17 @@ class Card extends Component {
     //   const { title } = this.props;
     return (
       <div className="card-container">
-            <h3 className="card-title">{this.title}</h3>
-            {this.autor && (
-        Array.isArray(this.autor) ? (
-          this.autor.map((ItemAutor, index) => (
-            <p key={index} className="card-autor">{ItemAutor}</p>
-          ))
-        ) : (
-          <p className="card-autor">{this.autor}</p> // Обработка случая, когда autor — строка
-        )
-      )}
+        <h3 className="card-title">{this.title}</h3>
+        {this.autor &&
+          (Array.isArray(this.autor) ? (
+            this.autor.map((ItemAutor, index) => (
+              <p key={index} className="card-autor">
+                {ItemAutor}
+              </p>
+            ))
+          ) : (
+            <p className="card-autor">{this.autor}</p> // Обработка случая, когда autor — строка
+          ))}
       </div>
     );
   }

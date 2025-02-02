@@ -5,7 +5,8 @@ import cocktailSvg from './assets/cocktail-svgrepo-com.svg';
 
 interface DataFetcherProps {
   searchValue: string;
-  //   onSearch: () => void;
+  // onError: () => void;
+  onError: (errorMessage: string) => void;
 }
 
 interface DataFetcherState {
@@ -27,6 +28,7 @@ class DataFetcher extends Component<DataFetcherProps, DataFetcherState> {
   }
 
   strToResponce = (value: string): string => {
+    console.log('trToResponce',value);
     const arrWords = value.trim().split(' ');
     return arrWords.length > 1 ? arrWords.join('+') : arrWords[0] || '';
   };
@@ -46,11 +48,18 @@ class DataFetcher extends Component<DataFetcherProps, DataFetcherState> {
 
       // Сохраняем результаты в локальное хранилище
       localStorage.setItem('searchResults', JSON.stringify(data.docs || []));
-      localStorage.setItem('searchValue', JSON.stringify(this.props.searchValue || ''));
+      localStorage.setItem(
+        'searchValue',
+        JSON.stringify(this.props.searchValue || '')
+      );
     } catch (error) {
-      this.setState({ error: (error as Error).message, loading: false });
+      // this.setState({ loading: false });
+      // const errorMessage = (error as Error).message; // Получаем сообщение об ошибке
+      console.log('в DataFetcher', error);
+      // this.props.onError(errorMessage); // Передаем ошибку в родительский компонент
+      this.props.onError((error as Error).message); // Передаем ошибку
     }
-  };
+  }
 
   resetData = () => {
     // this.setState({ data: [], initialLoad: true }); // Сбрасываем данные и устанавливаем начальное состояние

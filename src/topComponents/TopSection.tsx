@@ -31,13 +31,24 @@ class TopSection extends Component<TopSectionProps> {
   render() {
     return (
       <div className="top-section">
-        <div className='head-block'>
-        <h1>You can find a book</h1>
-        <a href="https://openlibrary.org/dev/docs/api/search" target="_blank" rel="noopener">
-          <img src={bookFindSvg} className="logo book-find-svg" alt="book Find Svg logo" />
-        </a>
+        <div className="head-block">
+          <h1>You can find a book</h1>
+          <a
+            href="https://openlibrary.org/dev/docs/api/search"
+            target="_blank"
+            rel="noopener"
+          >
+            <img
+              src={bookFindSvg}
+              className="logo book-find-svg"
+              alt="book Find Svg logo"
+            />
+          </a>
         </div>
-        <MyInput onChange={this.props.onInputChange} value={this.props.searchValue} />{' '}
+        <MyInput
+          onChange={this.props.onInputChange}
+          value={this.props.searchValue}
+        />{' '}
         {/* Передаем onChange как пропс */}
         <ButtonForSearch onClick={this.props.onButtonClick} />{' '}
         {/* Передаем onChange как пропс */}

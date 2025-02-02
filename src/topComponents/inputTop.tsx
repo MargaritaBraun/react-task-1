@@ -10,7 +10,7 @@ interface MyInputProps {
 // }
 
 class MyInput extends Component<MyInputProps> {
-// class MyInput extends Component<MyInputProps, MyInputState> {
+  // class MyInput extends Component<MyInputProps, MyInputState> {
   // constructor(props: MyInputProps) {
   //   super(props);
   //   this.state = { value: '' }; // Инициализация состояния
