@@ -1,4 +1,4 @@
-import { Component } from 'react';
+// import { Component } from 'react';
 import BookInterface from './types/booksType';
 import Card from './CardView';
 
@@ -6,10 +6,10 @@ interface RenderBooksInterface {
   results: BookInterface[];
 }
 
-class RenderBooks extends Component<RenderBooksInterface> {
-  render() {
-    const { results } = this.props;
-    console.log('this.props', this.props);
+const RenderBooks =({ results }: RenderBooksInterface)  => {
+  // return (
+    // const { results } = this.props;
+    // console.log('this.props', this.props);
 
     if (results.length === 0) {
       return (
@@ -31,7 +31,7 @@ class RenderBooks extends Component<RenderBooksInterface> {
         })}
       </div>
     );
-  }
+  // )
 }
 
 export default RenderBooks;
