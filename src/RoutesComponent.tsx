@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-// import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 import App from './App';
 import ErrorPage from './ErrorPage';
+import SearchContainer from './SearchContainer';
 
 const NoDataContainer = () => {
   return (
@@ -22,40 +22,35 @@ const AboutContainer = () => {
 };
 
 const RoutesComponent = createBrowserRouter([
-    {
-      path: '/',
-      element: <App />,
-      errorElement: <ErrorPage />,
-      children: [
-        {
-          path: 'nodata',
-          element: <NoDataContainer />,
-        },
-        {
-          path: 'about',
-          element: <AboutContainer />,
-        },
-      ],
-    },
-  ]);
-  
-//   const RoutesComponent = () => {
-//     return <RouterProvider router={router} />;
-//   };
-  
-  export default RoutesComponent;
-// const RoutesComponent = () => {
-//   return (
-//       <Routes>
-//           <Route path="/" element={<App />}>
-              
-//       {/* <Route path="/" element={<div>Welcome to the Home Page</div>} /> */}
-//       <Route path="nodata" element={<NoDataContainer />} />
-//       <Route path="about" element={<AboutContainer />} />
-//           </Route>
-//       <Route path="*" element={<ErrorPage />} /> {/* Обработчик ошибок */}
-//     </Routes>
-//   );
-// };
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: 'search',
+        element: <SearchContainer />,
+        children: [
+          {
+            path: 'query=:query/page=:page?', // Убедитесь, что маршруты правильно настроены
+            element: <SearchContainer />,
+          },
+          // {
+          //   path: 'query=:query',
+          //   element: <SearchContainer />,
+          // },
+        ],
+      },
+      {
+        path: 'nodata',
+        element: <NoDataContainer />,
+      },
+      {
+        path: 'about',
+        element: <AboutContainer />,
+      },
+    ],
+  },
+]);
 
-// export default RoutesComponent;
+export default RoutesComponent;

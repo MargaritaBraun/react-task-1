@@ -1,27 +1,14 @@
-import cocktailSvg from './assets/cocktail-svgrepo-com.svg';
 import RenderBooks from './MainComponents/resultMain';
-import useFetch from './useMyFetch';
+import BookInterface from './MainComponents/types/booksType';
 
-const ShowRezult = ({ valueOfSearch }: { valueOfSearch: string }) => {
-    const { data, loading, error } = useFetch({ valueOfSearch });
-
-    if (loading) {
-        return (
-            <div className="load-container">
-                <img
-                    src={cocktailSvg}
-                    alt="cocktail Svg loading data"
-                    className="svg-loading"
-                />
-            </div>
-        );
-    }
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
-
-    return <RenderBooks results={data || []} />;
+interface DataFetcherProps {
+  data: BookInterface[] | null;
 }
+
+const ShowRezult = ({ data }: DataFetcherProps) => {
+  const servedData = JSON.parse(localStorage.getItem('searchResults') || '[]');
+
+  return <RenderBooks results={data?.length ? data : servedData} />;
+};
 
 export default ShowRezult;
