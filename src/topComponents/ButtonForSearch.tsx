@@ -1,9 +1,12 @@
-interface btnSearchProps {
-  onButtonClick: () => void;
+import { ButtonHTMLAttributes, ReactNode, FC } from 'react';
+
+interface btnSearchProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  onClick: () => void;
 }
-const ButtonForSearch = ({ onButtonClick }: btnSearchProps): ReactNode => {
+
+const ButtonForSearch: FC<btnSearchProps> = ({ ...props }): ReactNode => {
   return (
-    <button type="submit" className="search-btn" onClick={onButtonClick}>
+    <button type="submit" className="search-btn" {...props}>
       Search
     </button>
   );

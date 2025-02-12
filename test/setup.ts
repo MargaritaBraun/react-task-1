@@ -2,9 +2,9 @@
 // import { expect, afterEach } from 'vitest';
 // import { cleanup } from '@testing-library/react';
 // import matchers from '@testing-library/jest-dom/matchers';
-import { afterEach } from 'vitest'
-import { cleanup } from '@testing-library/react'
-import '@testing-library/jest-dom/vitest'
+import { afterEach } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom/vitest';
 // Расширяем expect метод с методами из react-testing-library
 // expect.extend(matchers);
 

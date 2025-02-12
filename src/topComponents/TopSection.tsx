@@ -6,13 +6,13 @@ import { ReactNode } from 'react';
 
 interface TopSectionProps {
   onInputChange: (value: string) => void;
-  onButtonClick: () => void;
+  onClick: () => void;
   searchValue: string;
 }
 
 const TopSection = ({
   onInputChange,
-  onButtonClick,
+  onClick,
   searchValue,
 }: TopSectionProps): ReactNode => {
   return (
@@ -32,7 +32,7 @@ const TopSection = ({
         </a>
       </div>
       <InputTop onChange={onInputChange} value={searchValue} />{' '}
-      <ButtonForSearch onButtonClick={onButtonClick} />
+      <ButtonForSearch onClick={onClick} />
     </div>
   );
 };

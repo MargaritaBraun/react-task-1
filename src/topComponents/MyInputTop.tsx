@@ -26,7 +26,7 @@ const MyInputTop = ({ value, onChange }: MyInputProps): ReactNode => {
         className="search-input"
         value={addvalue}
         onChange={handleChange}
-        data-testid="test-search-input" // Убедитесь, что это здесь
+        data-testid="test-search-input"
       />
     </label>
   );

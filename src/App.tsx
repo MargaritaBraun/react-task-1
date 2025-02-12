@@ -19,10 +19,7 @@ const App = () => {
   const handleButtonClick = () => {
     setValueAfterClick(searchValue);
     console.log('Button clicked, search value:', searchValue);
-    localStorage.setItem(
-      'searchValue',
-      JSON.stringify(searchValue || '')
-    );
+    localStorage.setItem('searchValue', JSON.stringify(searchValue || ''));
     navigate(`/search?query=${encodeURIComponent(searchValue)}`);
   };
 
@@ -30,7 +27,7 @@ const App = () => {
     <ErrorBoundary>
       <TopSection
         onInputChange={handleInputChange}
-        onButtonClick={handleButtonClick}
+        onClick={handleButtonClick}
         searchValue={searchValue}
       />
       <p className="text">Value {getValueAfterClick}</p>
