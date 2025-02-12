@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true, // Включите согласованность имен файлов
-    "strict": true // Включите строгую типизацию
+    "strict": true, // Включите строгую типизацию
+    "types": ["vitest/globals"]
+    // "typeRoots": ["./node_modules/@types", "./src/@types"]
   },
   "files": [],
   "references": [

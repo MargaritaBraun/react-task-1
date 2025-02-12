@@ -1,94 +1,39 @@
-import React, { ReactNode, Component } from 'react';
+import { useState } from 'react';
 import './css/App.css';
-import Header from './topComponents/TopSection';
-import DataFetcher from './DataFetcher';
-import FooterSection from './foooter/Footer';
+import TopSection from './topComponents/TopSection';
+import { Outlet, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
+import useLocalStorage from './useLocalStorage';
 
-class App extends Component {
-  state = {
-    searchValue: '',
-    searchResults: [],
-    initResp: true,
-    isError: false,
+const App = () => {
+  const savedValueSearch = useLocalStorage().valueSearch;
+  const valueSearch = savedValueSearch ? savedValueSearch : '';
+  const [searchValue, setSearchValue] = useState(valueSearch);
+  const navigate = useNavigate();
+  const [getValueAfterClick, setValueAfterClick] = useState('');
+
+  const handleInputChange = (value: string) => {
+    setSearchValue(value);
   };
 
-  dataFetcherRef = React.createRef<DataFetcher>();
-
-  componentDidMount() {
-    this.getLocalStorageData();
-  }
-
-  handleInputChange = (value: string) => {
-    this.setState({ searchValue: value });
+  const handleButtonClick = () => {
+    setValueAfterClick(searchValue);
+    console.log('Button clicked, search value:', searchValue);
+    localStorage.setItem('searchValue', JSON.stringify(searchValue || ''));
+    navigate(`/search?query=${encodeURIComponent(searchValue)}`);
   };
 
-  handleButtonClick = () => {
-    this.setState({ initResp: false }, () => {
-      this.dataFetcherRef.current?.fetchData();
-    });
-  };
-
-  openToHorror = () => {
-    this.setState({ isError: true });
-    throw new Error('This is Terrible');
-  };
-
-  getLocalStorageData() {
-    const searchResults = localStorage.getItem('searchResults');
-    const searchValue = localStorage.getItem('searchValue');
-    if (searchResults) {
-      this.setState({
-        searchResults: JSON.parse(searchResults),
-        initResp: false,
-      });
-    }
-    if (searchValue) {
-      this.setState({ searchValue: JSON.parse(searchValue) });
-    }
-  }
-
-  onupdateClearLocalStori = () => {
-    console.log('For Clearning LocalStorage and delete Error');
-    this.setState({ searchValue: '', searchResults: [] });
-    this.setState({ initResp: true });
-    this.setState({ isError: false });
-  };
-  render(): ReactNode {
-      const { initResp, searchValue, isError } = this.state;
-
-    return (
-      <ErrorBoundary>
-        <Header
-          onInputChange={this.handleInputChange}
-          onButtonClick={this.handleButtonClick}
-          searchValue={searchValue}
-        />
-
-        {isError ? (
-          <div className="no-data-message no-data-message-error">
-            <h1>Что-то пошло не так.</h1>
-          </div>
-        ) : !initResp && typeof searchValue === 'string' ? (
-          <DataFetcher
-            ref={this.dataFetcherRef}
-            searchValue={searchValue}
-            onError={this.openToHorror}
-          />
-        ) : (
-          <div className="no-data-message">
-            <p className="text">
-              Нет сохраненных данных. Пожалуйста, выполните поиск.
-            </p>
-          </div>
-        )}
-        <FooterSection
-          onClearLocalStori={this.onupdateClearLocalStori}
-          onError={this.openToHorror}
-        />
-      </ErrorBoundary>
-    );
-  }
-}
+  return (
+    <ErrorBoundary>
+      <TopSection
+        onInputChange={handleInputChange}
+        onClick={handleButtonClick}
+        searchValue={searchValue}
+      />
+      <p className="text">Value {getValueAfterClick}</p>
+      <Outlet />
+    </ErrorBoundary>
+  );
+};
 
 export default App;
