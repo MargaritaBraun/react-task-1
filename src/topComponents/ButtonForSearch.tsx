@@ -1,7 +1,7 @@
 interface btnSearchProps {
   onButtonClick: () => void;
 }
-const ButtonForSearch = ({ onButtonClick }: btnSearchProps): JSX.Element => {
+const ButtonForSearch = ({ onButtonClick }: btnSearchProps): ReactNode => {
   return (
     <button type="submit" className="search-btn" onClick={onButtonClick}>
       Search

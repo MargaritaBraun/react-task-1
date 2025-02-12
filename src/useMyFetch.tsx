@@ -53,11 +53,6 @@ function useMyFetch({
           JSON.stringify(result.docs || [])
         );
 
-        // localStorage.setItem(
-        //   'searchValue',
-        //   JSON.stringify(valueOfSearch || '')
-        // );
-
         setTotalResults(result.numFound || 10);
       } catch (err) {
         if (typeof err === 'object' && err !== null && 'message' in err) {

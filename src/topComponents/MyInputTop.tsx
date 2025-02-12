@@ -6,13 +6,18 @@ interface MyInputProps {
   value: string;
 }
 
-const MyInputTop = ({ value, onChange }: MyInputProps): JSX.Element => {
+const MyInputTop = ({ value, onChange }: MyInputProps): ReactNode => {
   const [addvalue, setValue] = useState(value);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setValue(newValue);
     onChange(newValue);
   };
+
+  if (typeof value !== 'string') {
+    throw new TypeError('Expected value to be a string');
+  }
+
   return (
     <label className="search-label">
       <input
@@ -21,6 +26,7 @@ const MyInputTop = ({ value, onChange }: MyInputProps): JSX.Element => {
         className="search-input"
         value={addvalue}
         onChange={handleChange}
+        data-testid="test-search-input" // Убедитесь, что это здесь
       />
     </label>
   );

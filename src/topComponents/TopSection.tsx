@@ -2,6 +2,7 @@ import InputTop from './MyInputTop';
 import ButtonForSearch from './ButtonForSearch';
 import '../css/search.css';
 import bookFindSvg from '../assets/book-education-find-svgrepo-com.svg';
+import { ReactNode } from 'react';
 
 interface TopSectionProps {
   onInputChange: (value: string) => void;
@@ -13,7 +14,7 @@ const TopSection = ({
   onInputChange,
   onButtonClick,
   searchValue,
-}: TopSectionProps): JSX.Element => {
+}: TopSectionProps): ReactNode => {
   return (
     <div className="top-section">
       <div className="head-block">

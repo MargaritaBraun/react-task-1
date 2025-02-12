@@ -9,7 +9,6 @@ const App = () => {
   const savedValueSearch = useLocalStorage().valueSearch;
   const valueSearch = savedValueSearch ? savedValueSearch : '';
   const [searchValue, setSearchValue] = useState(valueSearch);
-  // const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   const [getValueAfterClick, setValueAfterClick] = useState('');
 
@@ -22,10 +21,8 @@ const App = () => {
     console.log('Button clicked, search value:', searchValue);
     localStorage.setItem(
       'searchValue',
-      // searchValue
       JSON.stringify(searchValue || '')
     );
-    console.log('searchValue', localStorage.getItem('searchValue'));
     navigate(`/search?query=${encodeURIComponent(searchValue)}`);
   };
 
