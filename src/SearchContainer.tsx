@@ -10,8 +10,10 @@ const SearchContainer = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
+  // const pageParam = searchParams.get('page');
   const savedValueSearch = useLocalStorage().valueSearch;
   const valueSearch = savedValueSearch ? savedValueSearch : '';
+  console.log('valueSearch', valueSearch);
   const pageParam = searchParams.get('page');
   const page: number = pageParam ? parseInt(pageParam, 10) : 1;
 
