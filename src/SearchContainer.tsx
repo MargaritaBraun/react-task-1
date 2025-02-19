@@ -5,6 +5,7 @@ import ShowRezult from './ShowRezult';
 import useMyFetch from './useMyFetch';
 import cocktailSvg from './assets/cocktail-svgrepo-com.svg';
 import useLocalStorage from './useLocalStorage';
+import EmptyContainer from './MainComponents/EmptyContainer';
 
 const SearchContainer = () => {
   const location = useLocation();
@@ -41,12 +42,8 @@ const SearchContainer = () => {
       )}
 
       {error && <p className="error-message">{error}</p>}
-      {!valueSearch && !hasData ? (
-        <div className="no-data-message">
-          <p className="text">
-            Нет сохраненных данных. Пожалуйста, выполните поиск.
-          </p>
-        </div>
+      {valueSearch === '' || !hasData ? (
+        <EmptyContainer></EmptyContainer>
       ) : (
         <>
           <Paginations

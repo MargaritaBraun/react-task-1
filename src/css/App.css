@@ -1,11 +1,13 @@
-#root {
-  max-width: 1280px;
+/* #root div */
+.theme {
+  /* max-width: 1280px; */
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
-  height: 100svh;
+  height: 100%;
   color: transparent;
 }
 
@@ -34,6 +36,11 @@
   background-color: lightblue; /* Для визуализации */
   margin-top: 5px;
   border-radius: 7px;
+}
+
+.theme.dark .no-data-message,
+.theme.dark .load-container {
+  background-color: rgb(10, 89, 115); 
 }
 
 .svg-loading {

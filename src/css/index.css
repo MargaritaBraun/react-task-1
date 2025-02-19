@@ -21,14 +21,26 @@ li {
   line-height: 1.5;
   font-weight: 500;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   color: rgba(40, 214, 40, 0.67);
-  background-color: #242424;
+  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+    justify-content: space-between;
+    min-height: 100svh;
+    max-width: 1500px;
+    margin: 0 auto;
 }
 
 a {
@@ -36,6 +48,7 @@ a {
   color: #f764ff;
   text-decoration: crimson;
 }
+
 a:hover {
   color: #4428c0;
 }
@@ -48,12 +61,55 @@ body {
   min-height: 100vh;
   font-size: 10px;
   align-items: flex-start;
+  /* --color-background: #fafafa; */
+  /* --color-foreground: #1f2023; */
+}
+
+/* @media (prefers-color-scheme: dark) {
+  body {
+  background-color: #11172b;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+  background-color: #a5abbf;
+  }
+} */
+
+/* default light theme */
+/* body {
+  background-color: #a5abbf;
+} */
+
+/* темная тема */
+/* @media (prefers-color-scheme: dark) {
+  body {
+    background-color: #11172b; 
+  }
+} */
+
+/* светлая тема */
+/* @media (prefers-color-scheme: light) {
+  body {
+    background-color: #a5abbf;
+  }
+} */
+
+.theme.light {
+  background-color: #9eafe8;
+  /* --color-bg:  */
+}
+
+.theme.dark {
+  background-color: #11172b;
 }
 
 h1 {
   font-size: 2.7rem;
   /* line-height: 2.3; */
   line-height: normal;
+  color: green;
 }
 
 @media (max-width: 1200px) {
@@ -100,7 +156,7 @@ button:focus-visible {
   pointer-events: none;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #0d7ee2;
     background-color: #ffffff;
@@ -111,7 +167,28 @@ button:focus-visible {
   button {
     background-color: #f27c14;
   }
-}
+
+  body {
+    background-color: #0d7ee2;
+  }
+} */
+
+/* Стили для темной темы */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    color: #ffffff;
+    background-color: #121212;
+  }
+  a:hover {
+    color: #bb86fc;
+  }
+  button {
+    background-color: #6200ee;
+  }
+  body {
+    background-color: #2d3843;
+  }
+} */
 
 .top-section {
   background-color: #ea74ff;
@@ -123,6 +200,28 @@ button:focus-visible {
   border-radius: 7px;
   flex-wrap: wrap;
 }
+
+.theme.dark .top-section {
+  background-color: #511e5b;
+}
+
+/* Стили для темной темы */
+/* @media (prefers-color-scheme: dark) {
+  .top-section {
+    background-color: #1b4536;
+  }
+} */
+/* Стили для темной темы */
+/* @media (prefers-color-scheme: light) {
+  .top-section {
+    background-color: #e3810afc;
+  }
+} */
+
+
+/* .top-section.dark {
+  background-color: #1b4536;
+} */
 
 .head-block {
   display: flex;

@@ -13,10 +13,10 @@ const Card = ({ title, author_name: autor, ...other }: BookInterface) => {
   const details: BookDetails = { ...other } as BookDetails;
 
   const showDetails = false;
-
   return (
     <div className="card-container">
       <h3 className="card-title">{title}</h3>
+      <div className='container-autors'>
       {autor &&
         (Array.isArray(autor) ? (
           autor.map((ItemAutor, index) => (
@@ -26,7 +26,8 @@ const Card = ({ title, author_name: autor, ...other }: BookInterface) => {
           ))
         ) : (
           <p className="card-autor">{autor}</p>
-        ))}
+          ))}
+        </div>
       {showDetails && (
         <div className="details">
           <h4>Details:</h4>
