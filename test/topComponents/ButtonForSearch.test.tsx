@@ -7,12 +7,7 @@ describe('ButtonForSearch testing', () => {
   const onClick = vi.fn();
 
   beforeEach(() => {
-    render(
-      <ButtonForSearch
-        onClick={onClick}
-        data-testid={inputTestId}
-      />
-    );
+    render(<ButtonForSearch onClick={onClick} data-testid={inputTestId} />);
   });
 
   test('Проверка, что onClick вызывается при клике на кнопку', () => {
