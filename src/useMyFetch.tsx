@@ -62,7 +62,7 @@ function useMyFetch({
         }
       } finally {
         setLoading(false);
-        setHasData(!error);
+        setHasData(true);
       }
     };
 

@@ -17,7 +17,7 @@ const TopSection = ({
   searchValue,
 }: TopSectionProps): ReactNode => {
   return (
-    <div className='top-section'>
+    <div className="top-section">
       <div className="head-block">
         <h1>You can find a book</h1>
         <a

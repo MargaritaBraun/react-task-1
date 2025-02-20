@@ -4,26 +4,31 @@ import ErrorBoundary from '..//src/ErrorBoundary';
 import React from 'react';
 
 describe('проверка на работы ErrorBoundary', () => {
-    const TestCrowdedDiv = () => { throw Error('Terrible') };
+  const TestCrowdedDiv = () => {
+    throw Error('Terrible');
+  };
 
-    beforeEach(() => {
-        render(<ErrorBoundary>
-            <TestCrowdedDiv/>
-        </ErrorBoundary>)
-    })
+  beforeEach(() => {
+    render(
+      <ErrorBoundary>
+        <TestCrowdedDiv />
+      </ErrorBoundary>
+    );
+  });
 
-    it('должен отображать заголовок при ошибке', () => {
-        const heading: HTMLHeadingElement = screen.getByText(/что-то пошло не так./i);
-        expect(heading).toBeInTheDocument();
-    })
+  it('должен отображать заголовок при ошибке', () => {
+    const heading: HTMLHeadingElement =
+      screen.getByText(/что-то пошло не так./i);
+    expect(heading).toBeInTheDocument();
+  });
 
-    // it('check throw error', () => {
-    //     expect(() => {
-    //       render(
-    //         <ErrorBoundary>
-    //         <TestCrowdedDiv/>
-    //     </ErrorBoundary>
-    //       );
-    //     }).toThrow();
-    //   });
-})
+  // it('check throw error', () => {
+  //     expect(() => {
+  //       render(
+  //         <ErrorBoundary>
+  //         <TestCrowdedDiv/>
+  //     </ErrorBoundary>
+  //       );
+  //     }).toThrow();
+  //   });
+});
