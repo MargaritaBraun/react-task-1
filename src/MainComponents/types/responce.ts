@@ -4,8 +4,9 @@ interface ResponceInterface {
   numFound: number;
   numFoundExact: boolean;
   num_found: number;
-  offset: boolean;
+  offset: boolean | null
   start: number;
   q: string;
+  documentation_url: string;
 }
 export default ResponceInterface;

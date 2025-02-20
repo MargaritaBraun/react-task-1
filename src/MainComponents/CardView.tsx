@@ -16,18 +16,18 @@ const Card = ({ title, author_name: autor, ...other }: BookInterface) => {
   return (
     <div className="card-container">
       <h3 className="card-title">{title}</h3>
-      <div className='container-autors'>
-      {autor &&
-        (Array.isArray(autor) ? (
-          autor.map((ItemAutor, index) => (
-            <p key={index} className="card-autor">
-              {ItemAutor}
-            </p>
-          ))
-        ) : (
-          <p className="card-autor">{autor}</p>
+      <div className="container-autors">
+        {autor &&
+          (Array.isArray(autor) ? (
+            autor.map((ItemAutor, index) => (
+              <p key={index} className="card-autor">
+                {ItemAutor}
+              </p>
+            ))
+          ) : (
+            <p className="card-autor">{autor}</p>
           ))}
-        </div>
+      </div>
       {showDetails && (
         <div className="details">
           <h4>Details:</h4>

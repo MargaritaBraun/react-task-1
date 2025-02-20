@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import ResponceType from './MainComponents/types/responce';
 import BookInterface from './MainComponents/types/booksType';
 
-interface DataFetcherProps {
+export interface DataFetcherProps {
   valueOfSearch: string;
   localpage: number;
   setHasData: (hasData: boolean) => void;
 }
 
-interface DataFetcherState {
+export interface DataFetcherState {
   data: BookInterface[] | null;
   loading: boolean;
   error: string | null;
@@ -62,7 +62,7 @@ function useMyFetch({
         }
       } finally {
         setLoading(false);
-        setHasData(true);
+        setHasData(!error);
       }
     };
 

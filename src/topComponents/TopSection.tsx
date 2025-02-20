@@ -2,27 +2,22 @@ import InputTop from './MyInputTop';
 import ButtonForSearch from './ButtonForSearch';
 import '../css/search.css';
 import bookFindSvg from '../assets/book-education-find-svgrepo-com.svg';
-import { ReactNode, useContext } from 'react';
+import { ReactNode } from 'react';
 import SelectTheme from './SelectTheme';
-import ThemeContext from '../ThemeContext';
 
 interface TopSectionProps {
   onInputChange: (value: string) => void;
   onClick: () => void;
   searchValue: string;
-  // theme: string;
 }
 
 const TopSection = ({
   onInputChange,
   onClick,
   searchValue,
-  // theme,
 }: TopSectionProps): ReactNode => {
-  const [theme] = useContext(ThemeContext);
-  console.log('theme', theme);
   return (
-    <div className={'top-section' + ' ' + theme}>
+    <div className='top-section'>
       <div className="head-block">
         <h1>You can find a book</h1>
         <a

@@ -24,13 +24,12 @@
   margin: 0px 10px;
 }
 
-
 .theme.light .select_theme_html {
   background-color: #179524;
   color: rgb(77, 17, 29);
-  }
+}
 
 .theme.dark .select_theme_html {
-background-color: #4f349f;
-color: rgb(173, 94, 110);
+  background-color: #4f349f;
+  color: rgb(173, 94, 110);
 }

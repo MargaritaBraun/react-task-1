@@ -9,7 +9,7 @@ import './css/index.css';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     {/* <ThemeContext.Provider value={[theme, setTheme]}> */}
-      <RouterProvider router={RoutesComponent} />
-      {/* </ThemeContext.Provider> */}
+    <RouterProvider router={RoutesComponent} />
+    {/* </ThemeContext.Provider> */}
   </StrictMode>
 );
