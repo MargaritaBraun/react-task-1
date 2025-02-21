@@ -60,7 +60,6 @@ describe('useMyFetch', () => {
       expect(result.current.loading).toBe(false);
       expect(result.current.error).toBeDefined();
       expect(result.current.data).toBeNull();
-      console.log('testSetHasData', testSetHasData);
       expect(testSetHasData).toHaveBeenCalledWith(true);
     });
   });

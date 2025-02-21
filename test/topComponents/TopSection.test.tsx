@@ -49,7 +49,7 @@ describe('проверка на наличие TopSection', () => {
   });
 
   it('должен вызывать onClick при нажатии на кнопку', async () => {
-    const button = screen.getByRole('button', { name: /search/i }); // замените на фактическое название кнопки
+    const button = screen.getByRole('button', { name: /search/i });
     await userEvent.click(button);
     expect(testonClick).toHaveBeenCalled();
   });

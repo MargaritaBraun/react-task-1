@@ -1,9 +1,9 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import ErrorPage from './ErrorPage';
 import SearchContainer from './SearchContainer';
 
-const NoDataContainer = () => {
+export const NoDataContainer = () => {
   return (
     <div className="no-data-container">
       <p className="no-data-text">No data available</p>
@@ -11,7 +11,7 @@ const NoDataContainer = () => {
   );
 };
 
-const AboutContainer = () => {
+export const AboutContainer = () => {
   return (
     <div className="about">
       <h1>About</h1>
@@ -21,14 +21,15 @@ const AboutContainer = () => {
   );
 };
 
-const RoutesComponent = createBrowserRouter([
+const router = createBrowserRouter([
+  // const RoutesComponent = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'search',
+        path: '/search',
         element: <SearchContainer />,
         children: [
           {
@@ -42,15 +43,19 @@ const RoutesComponent = createBrowserRouter([
         ],
       },
       {
-        path: 'nodata',
+        path: '/nodata',
         element: <NoDataContainer />,
-      },
-      {
-        path: 'about',
-        element: <AboutContainer />,
       },
     ],
   },
+  {
+    path: '/about',
+    element: <AboutContainer />,
+  },
 ]);
+
+export const routes = router.routes;
+
+const RoutesComponent = () => <RouterProvider router={router} />;
 
 export default RoutesComponent;

@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider } from 'react-router';
+// import { RouterProvider } from 'react-router';
 import RoutesComponent from './RoutesComponent';
 import './css/index.css';
 // import ThemeContext from './ThemeContext';
@@ -9,7 +9,8 @@ import './css/index.css';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     {/* <ThemeContext.Provider value={[theme, setTheme]}> */}
-    <RouterProvider router={RoutesComponent} />
+    {/* <RouterProvider router={RoutesComponent} /> */}
+    <RoutesComponent />
     {/* </ThemeContext.Provider> */}
   </StrictMode>
 );
