@@ -1,10 +1,7 @@
 import BookInterface from './types/booksType';
 import Card from './CardView';
 import MiniBookCollection from './MiniBookCollection';
-// import { getCountBookSelect } from '../Redux/Redux-main';
-// import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-// import { RootState } from '@reduxjs/toolkit/query';
 import { RootState } from '../Redux/Redux-main';
 
 interface RenderBooksInterface {
@@ -12,15 +9,8 @@ interface RenderBooksInterface {
 }
 
 const RenderBooks = ({ results }: RenderBooksInterface) => {
-  // const countBooksCollection = useSelector((state: RootState) => state.length);
   const countBookSelect = useSelector((state: RootState) => state.length);
   const showBookCollection = countBookSelect > 0;
-  // const [showBookCollection, setShowBookCollection] = useState(false);
-
-  // useEffect(() => {
-  //   const countBooksCollection = getCountBookSelect();
-  //   setShowBookCollection(countBooksCollection > 0);
-  // }, [results]);
 
   if (results.length === 0) {
     return (

@@ -34,6 +34,7 @@ interface BookInterface {
   lcc_sort: string;
   author_facet: string[];
   time_key: string[];
+  ia_collection_s: string;
 }
 
 export default BookInterface;
