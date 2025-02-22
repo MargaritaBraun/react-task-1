@@ -9,10 +9,19 @@
 
 .card-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
   border-radius: 7px;
   background-color: #32db8f87;
+  padding: 5px 0;
+}
+
+.main-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
 
 .theme.dark .card-container {
@@ -72,11 +81,11 @@
 .container-autors {
   display: flex;
   flex-direction: column;
-  flex-basis: 45%;
+  flex-basis: 40%;
 }
 
 .card-title {
-  flex-basis: 45%;
+  flex-basis: 40%;
 }
 
 .card-title,
@@ -86,4 +95,34 @@
   color: #569a0e;
   padding: 0;
   margin: 0;
+}
+
+
+.book-cover {
+  width: 100px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.details * {
+  font-size: 1.2rem;
+  color: maroon;
+}
+
+.text-details {
+  display: flex;
+  flex-direction: column;
+  /* width: 40%; */
+}
+
+.text-details p {
+  white-space: wrap;
 }

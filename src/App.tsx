@@ -23,7 +23,7 @@ const App = () => {
   const handleButtonClick = () => {
     setValueAfterClick(searchValue);
     console.log('Button clicked, search value:', searchValue);
-    localStorage.setItem('searchValue', JSON.stringify(searchValue || ''));
+    localStorage.setItem('searchValue', (searchValue || ''));
     navigate(`/search?query=${encodeURIComponent(searchValue)}`);
   };
 
