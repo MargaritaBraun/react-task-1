@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import ErrorBoundary from '..//src/ErrorBoundary';
+import ErrorBoundary from '../src/ErrorBoundary';
 import React from 'react';
 
 describe('проверка на работы ErrorBoundary', () => {

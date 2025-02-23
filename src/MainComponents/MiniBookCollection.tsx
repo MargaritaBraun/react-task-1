@@ -2,14 +2,17 @@ import { getCountBookSelect } from '../Redux/Redux-main';
 import '../css/mini_book_collection.css';
 import { useAcrions } from '../Redux/Redux-main';
 import store from '../Redux/Redux-main';
+
+export const handleClearCollections = (clearAllCollections: () => void, event: React.MouseEvent<HTMLButtonElement>) => {
+  event.preventDefault();
+  clearAllCollections();
+};
+
 const MiniBookCollection = () => {
   const { clearAllCollections } = useAcrions();
 
-  const handleClearCollections = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    clearAllCollections();
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    handleClearCollections(clearAllCollections, event);
   };
 
   const handleDownloadCSV = () => {
@@ -21,7 +24,11 @@ const MiniBookCollection = () => {
     const csvRows = selectedItems
       .map(
         (item) =>
-          `${item.id},"${item.title}","${item.author_name.join(', ')}",${item.first_publish_year},${item.has_fulltext},${item.language.join(', ')},${item.ia_collection_s}`
+          `${item.id}, "${item.title}", 
+        "${item.author_name ? item.author_name.join(', ') : 'N/A'}",
+         ${item.first_publish_year},
+         ${item.has_fulltext}, ${item.language ? item.language.join(', ') : 'N/A'},
+         ${item.ia_collection_s}`
       )
       .join('\n');
 
@@ -41,10 +48,10 @@ const MiniBookCollection = () => {
   };
 
   return (
-    <div className="mini_book_collection">
+    <div className="mini_book_collection" data-testid="mini-book-collection">
       <button
         className="clear_book_collection"
-        onClick={handleClearCollections}
+        onClick={handleClick}
         type="button"
       >
         Unselect all

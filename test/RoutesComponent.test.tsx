@@ -26,13 +26,13 @@ vi.mock('react-router-dom', async () => {
 //   ),
 // }));
 
-vi.mock('../src/SearchContainer', () => ({
-  default: () => (
-    <div>
-      <h2>Mocked SearchContainer Component</h2>
-    </div>
-  ),
-}));
+// vi.mock('../src/SearchContainer', () => ({
+//   default: () => (
+//     <div>
+//       <h2>Mocked SearchContainer Component</h2>
+//     </div>
+//   ),
+// }));
 
 // vi.mock('../src/RoutesComponent', async () => {
 //   const actual = await vi.importActual('../src/RoutesComponent');
@@ -50,14 +50,14 @@ describe('React Router', () => {
     });
 
     render(<RouterProvider router={router} />);
-    console.log('Rendered routes:', routes);
+    // console.log('Rendered routes:', routes);
     expect(router.state.location.pathname).toBe('/search');
     // console.log('Rendered DOM:', document.body.innerHTML);
     // console.log('Router state:', router.state);
     // console.log('1 search', router.state.location.pathname);
-    // expect(
-    //   await screen.findByText(/Mocked SearchContainer Component/i)
-    // ).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Sorry, something went wrong./i)
+    ).toBeInTheDocument();
   });
 
   test('should render NoDataContainer on /nodata path', async () => {

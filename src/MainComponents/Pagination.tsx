@@ -17,13 +17,11 @@ const Paginations = ({
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const valueSearch = searchParams.get('query') || '';
 
   const changePage = (page: number) => {
     if (page < 1 || page > totalPages) return;
 
     searchParams.set('page', page.toString());
-    searchParams.set('query', encodeURIComponent(valueSearch));
     navigate(`?${searchParams.toString()}`);
 
     handlePageChange(page);

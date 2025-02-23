@@ -1,48 +1,55 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './css/App.css';
 import TopSection from './topComponents/TopSection';
 import { Outlet, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import useLocalStorage from './useLocalStorage';
-// import SearchContainer from './SearchContainer';
 import EmptyContainer from './MainComponents/EmptyContainer';
 import ThemeContext from './ThemeContext';
 
 const App = () => {
-  const savedValueSearch = useLocalStorage().valueSearch;
-  const valueSearch = savedValueSearch ? savedValueSearch : '';
-  const [searchValue, setSearchValue] = useState(valueSearch);
+  const {
+    valueSearch: savedValueSearch,
+    page: savedPage,
+    data,
+  } = useLocalStorage();
+  const [searchValue, setSearchValue] = useState(savedValueSearch || '');
   const navigate = useNavigate();
-  const [getValueAfterClick, setValueAfterClick] = useState('');
   const [theme, setTheme] = useState('light');
+  const [hasSearched, setHasSearched] = useState(false);
+
+  useEffect(() => {
+    if (savedValueSearch) {
+      navigate(
+        `/search?search=${encodeURIComponent(savedValueSearch)}&page=${savedPage}`
+      );
+    }
+  }, [savedValueSearch, savedPage, navigate]);
 
   const handleInputChange = (value: string) => {
     setSearchValue(value);
   };
 
   const handleButtonClick = () => {
-    setValueAfterClick(searchValue);
     console.log('Button clicked, search value:', searchValue);
     localStorage.setItem('searchValue', searchValue || '');
-    navigate(`/search?query=${encodeURIComponent(searchValue)}`);
+    setHasSearched(true);
+    navigate(
+      `/search?search=${encodeURIComponent(searchValue)}&page=${savedPage}`
+    );
   };
 
-  console.log('theme', theme);
   return (
     <ErrorBoundary>
       <ThemeContext.Provider value={[theme, setTheme]}>
-        <div className={'theme ' + theme}>
-          {' '}
-          {/* Применяем класс темы */}
+        <div className={`theme ${theme}`}>
           <TopSection
             onInputChange={handleInputChange}
             onClick={handleButtonClick}
             searchValue={searchValue}
-            // className={theme}
           />
-          <p className="text">Value {getValueAfterClick}</p>
-          {!getValueAfterClick && !valueSearch ? (
-            <EmptyContainer></EmptyContainer>
+          {(!data || data.length === 0) && !hasSearched ? (
+            <EmptyContainer />
           ) : (
             <Outlet />
           )}

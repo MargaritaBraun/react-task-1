@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Paginations from './MainComponents/Pagination';
 import ShowRezult from './ShowRezult';
 import useMyFetch from './useMyFetch';
@@ -8,29 +8,22 @@ import useLocalStorage from './useLocalStorage';
 import EmptyContainer from './MainComponents/EmptyContainer';
 
 const SearchContainer = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
-  const savedValueSearch = useLocalStorage().valueSearch;
-  const valueSearch = savedValueSearch ? savedValueSearch : '';
+  const [searchParams] = useSearchParams();
   const pageParam = searchParams.get('page');
-  const page: number = pageParam ? parseInt(pageParam, 10) : 1;
 
-  const [currentPage, setCurrentPage] = useState<number>(page);
-  const [hasData, setHasData] = useState<boolean>(false);
+  const { valueSearch: savedValueSearch, page: savedPage } = useLocalStorage();
+  const valueSearch = savedValueSearch || '';
+  const initialPage = pageParam ? parseInt(pageParam, 10) : savedPage || 1;
+
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   const { data, loading, error, totalResults } = useMyFetch({
     valueOfSearch: valueSearch,
     localpage: currentPage,
-    setHasData,
   });
 
-  useEffect(() => {
-    setCurrentPage(page);
-  }, [location.search, page]);
-
   return (
-    <div>
+    <div className="searchContainer-main">
       {loading && (
         <div className="load-container">
           <img
@@ -42,16 +35,21 @@ const SearchContainer = () => {
       )}
 
       {error && <p className="error-message">{error}</p>}
-      {valueSearch === '' || !hasData ? (
-        <EmptyContainer></EmptyContainer>
-      ) : (
+
+      {loading || error ? null : (
         <>
-          <Paginations
-            currentPage={currentPage}
-            allResults={totalResults}
-            handlePageChange={(page) => setCurrentPage(page)}
-          />
-          <ShowRezult data={data} />
+          {data && data.length > 0 ? (
+            <>
+              <Paginations
+                currentPage={currentPage}
+                allResults={totalResults}
+                handlePageChange={(page) => setCurrentPage(page)}
+              />
+              <ShowRezult data={data} />
+            </>
+          ) : (
+            <EmptyContainer />
+          )}
         </>
       )}
     </div>

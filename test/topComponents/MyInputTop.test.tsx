@@ -2,8 +2,8 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import MyInputTop from '../../src/topComponents/MyInputTop';
 
-describe('111 Тестирование MyInputTop', () => {
-  describe('222 Тестирование базовых свойств MyInputTop', () => {
+describe('Тестирование MyInputTop', () => {
+  describe('Тестирование базовых свойств MyInputTop', () => {
     const inputTestId = 'test-search-input';
     const inputValue = 'sea';
     const onChange = vi.fn();

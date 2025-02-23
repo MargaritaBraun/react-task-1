@@ -22,7 +22,6 @@ export const AboutContainer = () => {
 };
 
 const router = createBrowserRouter([
-  // const RoutesComponent = createBrowserRouter([
   {
     path: '/',
     element: <App />,
@@ -31,16 +30,6 @@ const router = createBrowserRouter([
       {
         path: '/search',
         element: <SearchContainer />,
-        children: [
-          {
-            path: 'query=:query/page=:page?', // Убедитесь, что маршруты правильно настроены
-            element: <SearchContainer />,
-          },
-          // {
-          //   path: 'query=:query',
-          //   element: <SearchContainer />,
-          // },
-        ],
       },
       {
         path: '/nodata',
