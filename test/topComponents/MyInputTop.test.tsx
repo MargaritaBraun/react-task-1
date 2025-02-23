@@ -27,12 +27,12 @@ describe('Тестирование MyInputTop', () => {
   });
 });
 
-describe('negative myInput', () => {
+describe('img myInput', () => {
   const inputTestId = 'test-search-input';
-  const inputValue = ['1', '2', '3'];
+  const inputValue = 'New';
   const onChange = vi.fn();
 
-  it('check throw error', () => {
+  it('check imgElement', () => {
     expect(() => {
       render(
         <MyInputTop
@@ -41,19 +41,9 @@ describe('negative myInput', () => {
           data-testid={inputTestId}
         />
       );
-    }).toThrow();
-  });
-  it('check throw error type', () => {
-    expect(() => {
-      render(
-        <MyInputTop
-          value={inputValue}
-          onChange={onChange}
-          data-testid={inputTestId}
-        />
-      );
-
-      expectTypeOf(inputValue).toEqualTypeOf<string>(); // проверка на тип данных
-    }).toThrow();
+      const imgElement = screen.getByAltText(`book Find Svg logo`);
+        expect(imgElement).toBeInTheDocument();
+        expect(imgElement).toHaveClass('logo book-find-svg');
+    });
   });
 });

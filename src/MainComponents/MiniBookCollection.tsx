@@ -3,7 +3,10 @@ import '../css/mini_book_collection.css';
 import { useAcrions } from '../Redux/Redux-main';
 import store from '../Redux/Redux-main';
 
-export const handleClearCollections = (clearAllCollections: () => void, event: React.MouseEvent<HTMLButtonElement>) => {
+export const handleClearCollections = (
+  clearAllCollections: () => void,
+  event: React.MouseEvent<HTMLButtonElement>
+) => {
   event.preventDefault();
   clearAllCollections();
 };

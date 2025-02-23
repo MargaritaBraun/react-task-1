@@ -1,5 +1,4 @@
 interface BookInterface {
-  id?: string;
   cover_edition_key?: string;
   cover_i?: number;
   ia?: string[];

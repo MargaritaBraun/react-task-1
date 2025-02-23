@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ButtonForSearch from '../../src/topComponents/ButtonForSearch';
+import React from 'react';
 
 describe('ButtonForSearch testing', () => {
   const inputTestId = 'test-search-button';

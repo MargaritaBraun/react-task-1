@@ -10,7 +10,6 @@ vi.mock('react-router-dom', () => ({
 
 describe('ErrorPage', () => {
   it('отображает сообщение об ошибке', () => {
-
     useRouteError.mockReturnValue(new Error('Test error'));
 
     render(<ErrorPage />);

@@ -16,7 +16,6 @@ vi.mock('react-redux', async () => {
 
 describe('RenderBooks Component', () => {
   it('should display MiniBookCollection when countBookSelect > 0', () => {
-
     const mockState = {
       length: 5,
     };
@@ -32,8 +31,7 @@ describe('RenderBooks Component', () => {
     expect(screen.getByTestId('mini-book-collection')).toBeInTheDocument();
   });
 
-    it('should not display MiniBookCollection when countBookSelect === 0', () => {
-      
+  it('should not display MiniBookCollection when countBookSelect === 0', () => {
     const mockState = {
       length: 0,
     };

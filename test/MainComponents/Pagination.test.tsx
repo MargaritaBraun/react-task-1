@@ -6,35 +6,46 @@ import { render, screen } from '@testing-library/react';
 
 const mockhandlePageChange = vi.fn();
 describe('pagination tests', () => {
-    afterEach(() => {
-        vi.clearAllMocks();
-      });
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
   it('renders pagination', () => {
     const { container } = render(
       <MemoryRouter>
-            <Pagination currentPage={1} allResults={100} handlePageChange={ mockhandlePageChange} />
+        <Pagination
+          currentPage={1}
+          allResults={100}
+          handlePageChange={mockhandlePageChange}
+        />
       </MemoryRouter>
     );
-      screen.debug(container);
+    screen.debug(container);
     expect(container.querySelector('.pagination')).toBeInTheDocument();
   });
 
   it('renders pagination', () => {
     const { container } = render(
       <MemoryRouter>
-            <Pagination currentPage={2} allResults={100} handlePageChange={ mockhandlePageChange} />
+        <Pagination
+          currentPage={2}
+          allResults={100}
+          handlePageChange={mockhandlePageChange}
+        />
       </MemoryRouter>
-      );
-      
-    //   screen.debug(container);
-      expect(container.querySelector('.pagination')).toBeInTheDocument();
-  });
-    
-  it('проверка страницы 1 из 3', () => {
+    );
 
+    //   screen.debug(container);
+    expect(container.querySelector('.pagination')).toBeInTheDocument();
+  });
+
+  it('проверка страницы 1 из 3', () => {
     render(
       <MemoryRouter>
-        <Pagination currentPage={1} allResults={30} handlePageChange={mockhandlePageChange} />
+        <Pagination
+          currentPage={1}
+          allResults={30}
+          handlePageChange={mockhandlePageChange}
+        />
       </MemoryRouter>
     );
 
@@ -44,11 +55,15 @@ describe('pagination tests', () => {
     const rightButton = screen.getByRole('button', { name: /right Arrow/i });
     expect(rightButton).toBeEnabled();
   });
-    
+
   it('проверка на кнопки', () => {
     render(
       <MemoryRouter>
-        <Pagination currentPage={2} allResults={30} handlePageChange={mockhandlePageChange} />
+        <Pagination
+          currentPage={2}
+          allResults={30}
+          handlePageChange={mockhandlePageChange}
+        />
       </MemoryRouter>
     );
 
@@ -66,7 +81,11 @@ describe('pagination tests', () => {
   it('как работает последняя страница', () => {
     render(
       <MemoryRouter>
-        <Pagination currentPage={3} allResults={30} handlePageChange={mockhandlePageChange} />
+        <Pagination
+          currentPage={3}
+          allResults={30}
+          handlePageChange={mockhandlePageChange}
+        />
       </MemoryRouter>
     );
 

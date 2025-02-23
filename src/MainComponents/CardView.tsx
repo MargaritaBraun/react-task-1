@@ -12,12 +12,11 @@ interface BookDetails extends BookInterface {
   public_scan_b: boolean;
 }
 
-const Card = ({
-  id,
-  title,
-  author_name: autor,
-  ...other
-}: BookInterface & { id: string }) => {
+interface CardProps extends BookInterface {
+  id: string;
+}
+
+const Card = ({ id, title, author_name: autor, ...other }: CardProps) => {
   const { add, deleteById } = useAcrions();
   const countBookSelect = useSelector((state: RootState) => state.length);
   const [isChecked, setChecked] = useState(checkIsId(id));

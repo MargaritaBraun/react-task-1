@@ -1,7 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import MiniBookCollection, { handleClearCollections } from '../../src/MainComponents/MiniBookCollection';
+import MiniBookCollection, {
+  handleClearCollections,
+} from '../../src/MainComponents/MiniBookCollection';
 import store from '../../src/Redux/Redux-main';
 import React from 'react';
 
@@ -32,15 +34,15 @@ describe('MiniBookCollection Component', () => {
 
     expect(mockClearAllCollections).toHaveBeenCalled();
   });
-    
+
   it('should call handleClearCollections directly', () => {
-        const mockClearAllCollections = vi.fn();
-        const event = { preventDefault: vi.fn() };
-    
-        handleClearCollections(mockClearAllCollections, event);
-    
-        expect(event.preventDefault).toHaveBeenCalled();
-    
-        expect(mockClearAllCollections).toHaveBeenCalled();
-      });
+    const mockClearAllCollections = vi.fn();
+    const event = { preventDefault: vi.fn() };
+
+    handleClearCollections(mockClearAllCollections, event);
+
+    expect(event.preventDefault).toHaveBeenCalled();
+
+    expect(mockClearAllCollections).toHaveBeenCalled();
+  });
 });

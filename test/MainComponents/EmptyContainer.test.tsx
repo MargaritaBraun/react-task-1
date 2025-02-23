@@ -4,7 +4,6 @@ import EmptyContainer from '../../src/MainComponents/EmptyContainer';
 import React from 'react';
 
 describe('проверка на наличие EmptyContainer', () => {
-
   beforeEach(() => {
     render(<EmptyContainer />);
   });
