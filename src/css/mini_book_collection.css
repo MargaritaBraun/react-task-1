@@ -1,0 +1,31 @@
+.mini_book_collection {
+  position: fixed;
+  display: flex;
+  background-color: blue;
+  height: 95px;
+  border-radius: 7px;
+  bottom: 20px;
+  right: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 9px;
+}
+
+.mini_book_collection button {
+  width: 100%;
+  padding: 5px 10px;
+  height: 60%;
+}
+
+.mini_book_collection h3 {
+  font-size: 1rem;
+  color: chocolate;
+  width: 100%;
+}
+
+.mini_book_collection h3 span {
+  font-size: 1.3rem;
+  color: rgb(199, 212, 8);
+  font-weight: 800;
+  display: block;
+}

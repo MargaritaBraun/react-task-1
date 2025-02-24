@@ -1,0 +1,248 @@
+/* Обнуление */
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+:root {
+  font-family: 'Oswald', serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  line-height: 1.5;
+  font-weight: 500;
+
+  /* color-scheme: light dark; */
+  color: rgba(40, 214, 40, 0.67);
+  /* background-color: #242424; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 100svh;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+a {
+  font-weight: 800;
+  color: #f764ff;
+  text-decoration: crimson;
+}
+
+a:hover {
+  color: #4428c0;
+}
+
+body {
+  margin: 0 auto;
+  display: flex;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  font-size: 10px;
+  align-items: flex-start;
+  /* --color-background: #fafafa; */
+  /* --color-foreground: #1f2023; */
+}
+
+/* @media (prefers-color-scheme: dark) {
+  body {
+  background-color: #11172b;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+  background-color: #a5abbf;
+  }
+} */
+
+/* default light theme */
+/* body {
+  background-color: #a5abbf;
+} */
+
+/* темная тема */
+/* @media (prefers-color-scheme: dark) {
+  body {
+    background-color: #11172b; 
+  }
+} */
+
+/* светлая тема */
+/* @media (prefers-color-scheme: light) {
+  body {
+    background-color: #a5abbf;
+  }
+} */
+
+.theme.light {
+  background-color: #9eafe8;
+  /* --color-bg:  */
+}
+
+.theme.dark {
+  background-color: #11172b;
+}
+
+h1 {
+  font-size: 2.7rem;
+  /* line-height: 2.3; */
+  line-height: normal;
+  color: green;
+}
+
+@media (max-width: 1200px) {
+  h1 {
+    font-size: 350%;
+  }
+}
+button {
+  border-radius: 7px;
+  border: 1.5px double green;
+  padding: 0.6em 1.2em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #ef820d;
+  cursor: pointer;
+  transition: background-color 0.25s;
+  /* max-width: 40px; */
+  /* display: flex;
+  justify-content: center; */
+}
+button:hover {
+  background-color: #ff64f7;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.btn-svg {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 20px;
+}
+
+.btn-page:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #0d7ee2;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #32db8f;
+  }
+  button {
+    background-color: #f27c14;
+  }
+
+  body {
+    background-color: #0d7ee2;
+  }
+} */
+
+/* Стили для темной темы */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    color: #ffffff;
+    background-color: #121212;
+  }
+  a:hover {
+    color: #bb86fc;
+  }
+  button {
+    background-color: #6200ee;
+  }
+  body {
+    background-color: #2d3843;
+  }
+} */
+
+.top-section {
+  background-color: #ea74ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 40px 30px;
+  border-radius: 7px;
+  flex-wrap: wrap;
+}
+
+.theme.dark .top-section {
+  background-color: #511e5b;
+}
+
+/* Стили для темной темы */
+/* @media (prefers-color-scheme: dark) {
+  .top-section {
+    background-color: #1b4536;
+  }
+} */
+/* Стили для темной темы */
+/* @media (prefers-color-scheme: light) {
+  .top-section {
+    background-color: #e3810afc;
+  }
+} */
+
+/* .top-section.dark {
+  background-color: #1b4536;
+} */
+
+.head-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-section {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 40px 30px;
+}
+
+.error-button {
+  background-color: #211318;
+  border: dotted 3px red;
+  color: blue;
+}
+
+.clear-localStr {
+  background-color: #0fcaabd9;
+  border: dotted 3px rgb(0, 208, 255);
+}
