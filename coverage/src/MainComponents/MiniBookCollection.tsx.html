@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.93% </span>
+                <span class="strong">59.7% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/59</span>
+                <span class='fraction'>40/67</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.93% </span>
+                <span class="strong">59.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/59</span>
+                <span class='fraction'>40/67</span>
             </div>
         
             
@@ -136,10 +136,22 @@
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
 <a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -151,6 +163,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -158,6 +171,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -185,6 +200,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,6 +216,12 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,7 +231,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getCountBookSelect } from '../Redux/Redux-main';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useRef } from 'react';
+import { getCountBookSelect } from '../Redux/Redux-main';
 import '../css/mini_book_collection.css';
 import { useAcrions } from '../Redux/Redux-main';
 import store from '../Redux/Redux-main';
@@ -224,12 +247,15 @@ export const handleClearCollections = (
 &nbsp;
 const MiniBookCollection = () =&gt; {
   const { clearAllCollections } = useAcrions();
+  const linkRef = useRef&lt;HTMLAnchorElement | null&gt;(null);
 &nbsp;
   const handleClick = (event: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; {
     handleClearCollections(clearAllCollections, event);
   };
 &nbsp;
-  const handleDownloadCSV = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+  const handleDownloadCSV = <span class="fstat-no" title="function not covered" >(event: React.MouseEvent&lt;HTMLButtonElement&gt;) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    event.preventDefault();</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    const selectedItems = store.getState();</span>
 <span class="cstat-no" title="statement not covered" >    console.log(selectedItems);</span>
 &nbsp;
@@ -238,7 +264,7 @@ const MiniBookCollection = () =&gt; {
 <span class="cstat-no" title="statement not covered" >    const csvRows = selectedItems</span>
 <span class="cstat-no" title="statement not covered" >      .map(</span>
 <span class="cstat-no" title="statement not covered" >        (item) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >          `${item.id}, "${item.title}", </span>
+<span class="cstat-no" title="statement not covered" >        `${item.id}, "${item.title}",</span>
 <span class="cstat-no" title="statement not covered" >        "${item.author_name ? item.author_name.join(', ') : 'N/A'}",</span>
 <span class="cstat-no" title="statement not covered" >         ${item.first_publish_year},</span>
 <span class="cstat-no" title="statement not covered" >         ${item.has_fulltext}, ${item.language ? item.language.join(', ') : 'N/A'},</span>
@@ -250,15 +276,16 @@ const MiniBookCollection = () =&gt; {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });</span>
 <span class="cstat-no" title="statement not covered" >    const url = URL.createObjectURL(blob);</span>
-<span class="cstat-no" title="statement not covered" >    const count = selectedItems.length;</span>
+<span class="cstat-no" title="statement not covered" >    const count = getCountBookSelect();</span>
 <span class="cstat-no" title="statement not covered" >    const filename = `${count}_books_collections.csv`;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const link = document.createElement('a');</span>
-<span class="cstat-no" title="statement not covered" >    link.setAttribute('href', url);</span>
-<span class="cstat-no" title="statement not covered" >    link.setAttribute('download', filename);</span>
-<span class="cstat-no" title="statement not covered" >    document.body.appendChild(link);</span>
-<span class="cstat-no" title="statement not covered" >    link.click();</span>
-<span class="cstat-no" title="statement not covered" >    document.body.removeChild(link);</span>
+<span class="cstat-no" title="statement not covered" >    if (linkRef.current) {</span>
+<span class="cstat-no" title="statement not covered" >      linkRef.current.href = url;</span>
+<span class="cstat-no" title="statement not covered" >      linkRef.current.download = filename;</span>
+<span class="cstat-no" title="statement not covered" >      linkRef.current.click();</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    URL.revokeObjectURL(url);</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 &nbsp;
   return (
@@ -274,6 +301,12 @@ const MiniBookCollection = () =&gt; {
         Value Book Collection
         &lt;span&gt;{getCountBookSelect()}&lt;/span&gt;
       &lt;/h3&gt;
+      &lt;a
+        ref={linkRef}
+        style={{ display: 'none' }}
+      &gt;
+        Download
+      &lt;/a&gt;
       &lt;button className="get_book_collection" onClick={handleDownloadCSV}&gt;
         Download
       &lt;/button&gt;
@@ -289,7 +322,7 @@ export default MiniBookCollection;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-23T14:44:16.247Z
+                at 2025-02-24T06:38:22.237Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

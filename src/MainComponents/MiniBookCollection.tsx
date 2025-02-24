@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { getCountBookSelect } from '../Redux/Redux-main';
 import '../css/mini_book_collection.css';
 import { useAcrions } from '../Redux/Redux-main';
@@ -13,12 +14,15 @@ export const handleClearCollections = (
 
 const MiniBookCollection = () => {
   const { clearAllCollections } = useAcrions();
+  const linkRef = useRef<HTMLAnchorElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     handleClearCollections(clearAllCollections, event);
   };
 
-  const handleDownloadCSV = () => {
+  const handleDownloadCSV = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
     const selectedItems = store.getState();
     console.log(selectedItems);
 
@@ -27,7 +31,7 @@ const MiniBookCollection = () => {
     const csvRows = selectedItems
       .map(
         (item) =>
-          `${item.id}, "${item.title}", 
+        `${item.id}, "${item.title}",
         "${item.author_name ? item.author_name.join(', ') : 'N/A'}",
          ${item.first_publish_year},
          ${item.has_fulltext}, ${item.language ? item.language.join(', ') : 'N/A'},
@@ -39,15 +43,16 @@ const MiniBookCollection = () => {
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
-    const count = selectedItems.length;
+    const count = getCountBookSelect();
     const filename = `${count}_books_collections.csv`;
 
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if (linkRef.current) {
+      linkRef.current.href = url;
+      linkRef.current.download = filename;
+      linkRef.current.click();
+    }
+
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -63,6 +68,12 @@ const MiniBookCollection = () => {
         Value Book Collection
         <span>{getCountBookSelect()}</span>
       </h3>
+      <a
+        ref={linkRef}
+        style={{ display: 'none' }}
+      >
+        Download
+      </a>
       <button className="get_book_collection" onClick={handleDownloadCSV}>
         Download
       </button>

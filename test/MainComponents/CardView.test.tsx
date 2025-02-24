@@ -25,9 +25,15 @@ describe('MiniBookCollection Component', () => {
 
   it('проверка на то что все объекты рендерятся', () => {
     const { container: renderedContainer } = render(
-        <Provider store={mockStore}>
+      <Provider store={mockStore}>
         {mockData.map(({ key, title, author_name, ...other }) => (
-          <Card key={key} id={key} title={title} author_name={author_name} {...other} />
+          <Card
+            key={key}
+            id={key}
+            title={title}
+            author_name={author_name}
+            {...other}
+          />
         ))}
       </Provider>
     );
@@ -64,26 +70,26 @@ describe('MiniBookCollection Component', () => {
   it('click проверка на то что все объекты рендерятся', () => {
     const mockBook = mockData[0];
     const { container: renderedContainer } = render(
-        <Provider store={mockStore}>
-             <Card 
-                key={mockBook.key}
-                id={mockBook.key} 
-                title={mockBook.title}
-                author_name={mockBook.author_name} 
-                {...(Object.keys(mockBook).reduce((acc, key) => {
-                    if (!['key', 'title', 'author_name'].includes(key)) {
-                        acc[key] = mockBook[key];
-                    }
-                    return acc;
-                }, {}))}
-            />
+      <Provider store={mockStore}>
+        <Card
+          key={mockBook.key}
+          id={mockBook.key}
+          title={mockBook.title}
+          author_name={mockBook.author_name}
+          {...Object.keys(mockBook).reduce((acc, key) => {
+            if (!['key', 'title', 'author_name'].includes(key)) {
+              acc[key] = mockBook[key];
+            }
+            return acc;
+          }, {})}
+        />
       </Provider>
     );
     container = renderedContainer;
 
     expect(screen.getByText(mockBook.title)).toBeInTheDocument();
     const cardContainer = container.querySelector('.card-container');
-      expect(cardContainer).toBeInTheDocument();
+    expect(cardContainer).toBeInTheDocument();
 
     expect(screen.queryByText('Details:')).not.toBeInTheDocument();
 

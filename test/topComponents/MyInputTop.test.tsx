@@ -42,8 +42,8 @@ describe('img myInput', () => {
         />
       );
       const imgElement = screen.getByAltText(`book Find Svg logo`);
-        expect(imgElement).toBeInTheDocument();
-        expect(imgElement).toHaveClass('logo book-find-svg');
+      expect(imgElement).toBeInTheDocument();
+      expect(imgElement).toHaveClass('logo book-find-svg');
     });
   });
 });
