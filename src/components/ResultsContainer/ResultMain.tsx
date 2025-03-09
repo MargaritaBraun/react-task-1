@@ -1,16 +1,16 @@
 import BookInterface from './types/booksType';
-import Card from './CardView';
-import MiniBookCollection from './MiniBookCollection';
-import { useSelector } from 'react-redux';
-import { RootState } from '../Redux/Redux-main';
+// import Card from './CardView';
+// import MiniBookCollection from './MiniBookCollection';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../Redux/Redux-main';
 
 interface RenderBooksInterface {
   results: BookInterface[];
 }
 
 const RenderBooks = ({ results }: RenderBooksInterface) => {
-  const countBookSelect = useSelector((state: RootState) => state.length);
-  const showBookCollection = countBookSelect > 0;
+  // const countBookSelect = useSelector((state: RootState) => state.length);
+  // const showBookCollection = countBookSelect > 0;
 
   if (results.length === 0) {
     return (
@@ -28,9 +28,10 @@ const RenderBooks = ({ results }: RenderBooksInterface) => {
       </div>
       {results.map((result) => {
         const { key: id, ...restProps } = result;
-        return <Card key={id} id={id} {...restProps} />;
+        // return <Card key={id} id={id} {...restProps} />;
+        return <div key={id} id={id} {...restProps} />;
       })}
-      {showBookCollection && <MiniBookCollection />}
+      {/* {showBookCollection && <MiniBookCollection />} */}
     </div>
   );
 };

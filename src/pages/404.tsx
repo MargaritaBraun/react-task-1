@@ -1,23 +1,25 @@
-import { useRouteError } from 'react-router-dom';
-
+// import { useRouteError } from 'react-router-dom';
+import Layout from "src/components/Layout";
 const ErrorPage = () => {
-  const error = useRouteError();
+  // const error = useRouteError();
 
-  if (error instanceof Error) {
-    return (
-      <div id="error-page">
-        <h1>Oops!</h1>
-        <p>Sorry, an unexpected error has occurred:</p>
-        <p>{error.message}</p>
-      </div>
-    );
-  }
+  // if (error instanceof Error) {
+  //   return (
+  //     <div id="error-page">
+  //       <h1>Oops!</h1>
+  //       <p>Sorry, an unexpected error has occurred:</p>
+  //       <p>{error.message}</p>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div id="error-page">
+    // <div id="error-page">
+    <Layout>
       <h1>Oops!</h1>
       <p>Sorry, something went wrong.</p>
-    </div>
+      {/* // </div> */}
+    </Layout>
   );
 };
 
