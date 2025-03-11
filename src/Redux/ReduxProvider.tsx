@@ -1,6 +1,6 @@
-"use client";
-import { Provider } from "react-redux";
-import store from "./Redux-main";
+'use client';
+import { Provider } from 'react-redux';
+import store from './Redux-main';
 import { ReactNode } from 'react';
 
 interface ReduxProviderProps {

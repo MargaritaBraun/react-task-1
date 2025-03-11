@@ -1,32 +1,60 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-// import useMyFetch from '../../hooks/useMyFetch';
-import ResultMain from '../../components/ResultsContainer/ResultMain';
+import { useEffect, useState } from 'react';
+import SearchContainer from '../../components/ResultsContainer/SearchContainer';
+import ResponceInterface from '../../components/ResultsContainer/types/responce';
+import Layout from '@/components/Layout';
+import Loading from './loading';
+import { GetServerSideProps } from 'next';
 
-const SearchPage = () => {
+const SearchPage = ({ data }: { data: ResponceInterface }) => {
   const router = useRouter();
   const { searchValue } = router.query;
-  const [value, setValue] = useState<string | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (searchValue) {
-      setValue(searchValue as string);
-    }
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, [searchValue]);
 
-  // const { data, loading, error, totalResults } = useMyFetch({
-  //   valueOfSearch: value || '',
-  //   localpage: 1,
-  // });
+  if (isLoading) {
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
+  }
 
   return (
-    <div>
-      <h1>Search Results for "{value}"</h1> {/* Используем локальное состояние */}
-      <ResultMain
-        data={data} 
+    <Layout>
+      <h1>Search Results for {searchValue}</h1>
+      <SearchContainer
+        data={data.docs}
+        error={data.numFound === 0}
+        totalResults={data.numFound}
       />
-    </div>
+    </Layout>
   );
 };
 
 export default SearchPage;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { searchValue } = context.query;
+  const url: string = 'https://openlibrary.org/search.json?';
+  const localpage = 1;
+
+  const response = await fetch(
+    `${url}title=${searchValue}&limit=10&page=${localpage}`
+  );
+  const data: ResponceInterface = await response.json();
+
+  return {
+    props: {
+      data,
+    },
+  };
+};

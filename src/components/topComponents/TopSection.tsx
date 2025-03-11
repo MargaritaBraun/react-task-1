@@ -15,11 +15,11 @@ const TopSection = (): ReactNode => {
           rel="noopener"
         >
           <Image
-            src='/book-education-find-svgrepo-com.svg'
+            src="/book-education-find-svgrepo-com.svg"
             className="logo book-find-svg"
             alt="book Find Svg logo"
-             width={50}
-             height={50}
+            width={50}
+            height={50}
           />
         </a>
       </div>

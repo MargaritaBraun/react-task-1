@@ -1,8 +1,8 @@
-'use client'
+'use client';
 import React, { ReactNode } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { saveValue } from '../../Redux/Redux-main';
-// import { useState } from 'react';
+// import { useDispatch } from 'react-redux'; // для redax
+// import { saveValue } from '../../Redux/Redux-main'; // для redax
+import { useState } from 'react';
 
 // interface MyInputProps {
 //   onChange: (value: string) => void;
@@ -11,17 +11,17 @@ import React, { ReactNode } from 'react';
 
 // { value, onChange }: MyInputProps
 const MyInputTop = (): ReactNode => {
-  // const dispatch = useDispatch();
-  // const [addvalue, setValue] = useState('');
+  // const dispatch = useDispatch();  // для redax
+  const [addvalue, setValue] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    // dispatch(saveValue(newValue));
-    // setValue(newValue);
-    // window.localStorage.getItem('searchResults');
+    // dispatch(saveValue(newValue));  // для redax
+    setValue(newValue);
     window.localStorage.setItem('searchResults', newValue);
     // onChange(newValue);
     // getVale(newValue)
     console.log('seacrh value', newValue);
+    console.log('seacrh addvalue state', addvalue);
   };
 
   // if (typeof value !== 'string') {

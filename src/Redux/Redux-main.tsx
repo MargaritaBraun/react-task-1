@@ -61,4 +61,21 @@ export const useActions = () => {
   );
 };
 
+export const { add, deleteById, clearAllCollections } =
+  dataStorageSlice.actions;
+
+export const { saveValue } = searchValueRedux.actions;
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export const checkIsId = (id: string): boolean => {
+  const state: BookForStore[] = store.getState().bookCollections;
+  return state.some((book) => book.id === id);
+};
+
+export const getCountBookSelect = (): number => {
+  const state: BookForStore[] = store.getState().bookCollections;
+  return state.length;
+};
+
 export default store;

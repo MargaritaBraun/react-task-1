@@ -1,5 +1,5 @@
-import RenderBooks from '../../components/ResultsContainer/ResultMain';
-import BookInterface from '../../components/ResultsContainer/types/booksType';
+import RenderBooks from './ResultMain';
+import BookInterface from './types/booksType';
 
 interface DataFetcherProps {
   // data: BookInterface[] | null;

@@ -13,7 +13,9 @@ const useMyFetch = ({ valueOfSearch, localpage }) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${url}title=${valueOfSearch}&limit=10&page=${localpage}`);
+        const response = await fetch(
+          `${url}title=${valueOfSearch}&limit=10&page=${localpage}`
+        );
         if (!response.ok) throw new Error('Network response was not ok');
         const result = await response.json();
         setData(result.docs || []);
