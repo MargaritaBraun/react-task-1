@@ -22,7 +22,7 @@ const MainContainer = (props: MainPropsBasic) => {
   );
 };
 
-export const getServerSideProp : GetServerSideProps = async () => {
+export const getServerSideProp: GetServerSideProps = async () => {
   const url: string = 'https://openlibrary.org/search.json?';
   const valueOfSearch: string = 'get';
   const localpage: number = 1;
@@ -35,5 +35,5 @@ export const getServerSideProp : GetServerSideProps = async () => {
       data,
     },
   };
-}
+};
 export default MainContainer;
