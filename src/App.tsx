@@ -1,35 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  NavLink,
+  NavLinkRenderProps,
+  Outlet,
+  Route,
+  Routes,
+} from 'react-router';
+import './App.css';
+import UncontrolledForm from './UncontrolledForm';
+import ReactHookForm from './ReactHookForm';
+import stylesNavigation from './navigation.module.css';
+import Home from './Home';
+// UncontrolledForm
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const Layout = () => {
+  const styles = ({ isActive }: NavLinkRenderProps) => ({
+    fontWeight: isActive ? 'bold' : 'normal',
+    color: isActive ? 'green' : 'grey',
+  });
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>React forms</h1>
+      <nav
+        style={{
+          borderBottom: 'solid 1px',
+          paddingBottom: '1rem',
+        }}
+      >
+        <NavLink
+          to='/'
+          style={styles}
+          className={stylesNavigation.linknav}
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/uncontrolledForm"
+          style={styles}
+          className={stylesNavigation.linknav}
+        >
+          UncontrolledForm
+        </NavLink>
+        <NavLink to="/reactHookForm" style={styles} className={stylesNavigation.linknav}>
+          ReactHookForm
+        </NavLink>
+      </nav>
+      <main style={{ padding: '1rem 0' }}>
+        <Outlet />
+      </main>
     </>
-  )
+  );
+};
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route element={<Layout />}>
+        <Route index element={<Home />} />
+          <Route path="uncontrolledForm" element={<UncontrolledForm />} />
+          <Route path="reactHookForm" element={<ReactHookForm />} />
+        </Route>
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;
