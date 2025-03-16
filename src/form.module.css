@@ -1,3 +1,10 @@
+.container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -6,14 +13,20 @@
   height: 50svh;
   border-radius: 8px;
   padding: 10px 5px;
+  width: 100%;
 }
 
 .label {
-  font-size: 20px;
+  /* font-size: 20px; */
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-around;
+}
+
+.labelSpan {
+  font-size: 20px;
+  flex-basis: 40%;
 }
 
 .input {
@@ -22,6 +35,30 @@
   font-size: 20px;
   padding: 5px;
   color: rgb(179, 0, 255);
+  position: relative;
+}
+
+.radio {
+  color: brown;
+}
+
+.div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.labelGender {
+  display: flex;
+  flex-direction: column;
+}
+
+.divBlock {
+  display: flex;
+  width: 30%;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .button {
@@ -34,14 +71,16 @@
   margin: 0 auto;
 }
 
-.container {
-  display: flex;
-  gap: 20px;
-}
-
 .textError {
   color: maroon;
   padding: 0;
   margin: 0;
   font-size: 13px;
+}
+
+.bthShow {
+  position: absolute;
+  right: 113px;
+  padding: 3px;
+  background-color: transparent;
 }

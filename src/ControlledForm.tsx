@@ -5,30 +5,30 @@ import DetailsComponents from './components/details';
 const ControlledForm = () => {
   const [form, setForm] = useState({
     nameText: '',
+    textareaState: '',
+    saveData: {
+      nameText: '',
       textareaState: '',
-      saveData: {
-          nameText: '',
-          textareaState: '',
-    }
+    },
   });
 
-    const [saveData, setSaveData] = useState({
-            isSaveData: false,
-          nameText: '',
-          textareaState: '',
+  const [saveData, setSaveData] = useState({
+    isSaveData: false,
+    nameText: '',
+    textareaState: '',
   });
 
   const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const target = event.target as HTMLButtonElement;
     console.log('Button Click', target);
-      setSaveData({
-        isSaveData: true,
-        nameText: form.nameText,
-        textareaState: form.textareaState,
-      });
+    setSaveData({
+      isSaveData: true,
+      nameText: form.nameText,
+      textareaState: form.textareaState,
+    });
     setForm({
-        ...form,
+      ...form,
       nameText: '',
       textareaState: '',
     });
@@ -50,15 +50,15 @@ const ControlledForm = () => {
 
   const closeDetails = () => {
     console.log('Close in Form');
-      setSaveData({
-        isSaveData: false,
-        nameText: '',
-        textareaState: '',
-      });
+    setSaveData({
+      isSaveData: false,
+      nameText: '',
+      textareaState: '',
+    });
   };
   return (
     <>
-      <h2 className='title-form'>Controlled Form</h2>
+      <h2 className="title-form">Controlled Form</h2>
       <div className={formStyles.container}>
         <form className={formStyles.form}>
           <label className={formStyles.label}>

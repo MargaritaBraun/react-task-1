@@ -4,8 +4,11 @@ interface DetailProps {
   onCloseClick: () => void;
 }
 
-const DetailsComponents = ({nameText, textareaValue, onCloseClick}: DetailProps) => {
-
+const DetailsComponents = ({
+  nameText,
+  textareaValue,
+  onCloseClick,
+}: DetailProps) => {
   return (
     <div>
       <h3>Details</h3>
