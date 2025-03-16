@@ -10,6 +10,7 @@ import UncontrolledForm from './UncontrolledForm';
 import ReactHookForm from './ReactHookForm';
 import stylesNavigation from './navigation.module.css';
 import Home from './Home';
+import ControlledForm from './ControlledForm';
 // UncontrolledForm
 
 const Layout = () => {
@@ -26,11 +27,7 @@ const Layout = () => {
           paddingBottom: '1rem',
         }}
       >
-        <NavLink
-          to='/'
-          style={styles}
-          className={stylesNavigation.linknav}
-        >
+        <NavLink to="/" style={styles} className={stylesNavigation.linknav}>
           Home
         </NavLink>
         <NavLink
@@ -40,8 +37,19 @@ const Layout = () => {
         >
           UncontrolledForm
         </NavLink>
-        <NavLink to="/reactHookForm" style={styles} className={stylesNavigation.linknav}>
+        <NavLink
+          to="/reactHookForm"
+          style={styles}
+          className={stylesNavigation.linknav}
+        >
           ReactHookForm
+        </NavLink>
+        <NavLink
+          to="/controlledForm"
+          style={styles}
+          className={stylesNavigation.linknav}
+        >
+          ControlledForm
         </NavLink>
       </nav>
       <main style={{ padding: '1rem 0' }}>
@@ -55,7 +63,8 @@ function App() {
     <>
       <Routes>
         <Route element={<Layout />}>
-        <Route index element={<Home />} />
+          <Route index element={<Home />} />
+          <Route path="controlledForm" element={<ControlledForm />} />
           <Route path="uncontrolledForm" element={<UncontrolledForm />} />
           <Route path="reactHookForm" element={<ReactHookForm />} />
         </Route>
