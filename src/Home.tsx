@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import homeStyles from './styles/navigation.module.css';
-import { selectUnformsData } from './redux/formSlice';
+import { selectUnformsData, selectHooksformsData } from './redux/formSlice';
 import { useSelector } from 'react-redux';
 import Card from './components/cardsForm';
 import FormData from './types/formType';
 
 const Home: FC = () => {
   const unformsData = useSelector(selectUnformsData);
-
+  const hooksformsData = useSelector(selectHooksformsData);
   console.log('unformsData', unformsData);
 
   return (
@@ -24,6 +24,13 @@ const Home: FC = () => {
       </div>
       <div className={homeStyles.part}>
         <h2>HookForm</h2>
+        {hooksformsData && hooksformsData.length > 0 ? (
+          hooksformsData.map((data: FormData, index: number) => (
+            <Card key={index} {...data} />
+          ))
+        ) : (
+          <p>No data available</p>
+        )}
       </div>
     </div>
   );

@@ -72,10 +72,12 @@ const ControlledForm = () => {
             ></input>
           </label>
 
-          <label>
+          <label className={formStyles.label}>
+            Write message
             <textarea
               value={form.textareaState}
               onChange={changeTextarea}
+              className={`${formStyles.textarea} ${formStyles.input}`}
             ></textarea>
           </label>
           <button className={formStyles.button} onClick={handleButton}>

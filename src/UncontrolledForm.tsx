@@ -62,7 +62,6 @@ const UncontrolledForm: FC = () => {
           ? termsRef.current?.checked
           : refs[fieldName]?.current?.value;
 
-    console.log('country', contriesRef.current?.value);
     try {
       await schema.validateAt(fieldName, { [fieldName]: value });
       setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: undefined }));

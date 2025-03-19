@@ -32,4 +32,7 @@ export const { addUncontrForm, setCountres, addHooksFormData } =
 export const selectUnformsData = (state: RootState) =>
   state.controlledForm.unformsData;
 
+export const selectHooksformsData = (state: RootState) =>
+  state.controlledForm.hooksformsData;
+
 export default formSlice.reducer;

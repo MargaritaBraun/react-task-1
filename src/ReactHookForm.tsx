@@ -4,21 +4,41 @@ import schema from './utils/validSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useState } from 'react';
 import ErrorMessage from './components/errorMessage';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import FormData from './types/formType';
+import convertToBase64 from './utils/converTo64Image';
+import { useNavigate } from 'react-router';
+import { addHooksFormData } from './redux/formSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ReactHookForm: FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log('data', data);
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    dispatch(addHooksFormData(formData));
+    console.log('Form submitted successfully:', formData);
+    navigate('/', { replace: true });
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const base64Image = await convertToBase64(file);
+      setValue('image', base64Image); // Обновляем значение поля image
+    }
   };
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -133,7 +153,8 @@ const ReactHookForm: FC = () => {
               type="file"
               accept="image/png,image/jpeg,image/jpg"
               className={formStyles.input}
-              {...register('image')}
+              onChange={handleFileChange}
+              // {...register('image')}
             />
           </label>
           {errors.image && <ErrorMessage message={errors.image.message} />}
