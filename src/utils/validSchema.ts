@@ -23,24 +23,26 @@ const schema = yup.object().shape({
     .required('Repeat password is required'),
   gender: yup.string().required('Gender is required'),
   // image: yup.required('Image is required'),
-  image: yup.mixed<File>()
-    .required('Image is required'),
-    // .test('fileSize', 'The file is too big (> 1 MB)', (value) => {
-    //   return value && value.size <= 2097152;
-    // }),
-    // .test('fileSize', 'File size is too large (max 2MB)', (value) => {
-    //   // if (!value) return false;
-    //   // const file = value as File;
-    //   // return file.size <= 2 * 1024 * 1024;
-    //   return value && value.size <= ; // 2MB
-    // }),
-    // .test('fileType', 'Unsupported file format (only PNG and JPEG)', (value) => {
-    //   // if (!value) return false;
-    //   // const file = value as File;
-    //   // return ['image/jpeg', 'image/png'].includes(file.type);
-    //   return value && ['image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
+  image: yup.mixed<File>().required('Image is required'),
+  // .test('fileSize', 'The file is too big (> 1 MB)', (value) => {
+  //   return value && value.size <= 2097152;
   // }),
-  terms: yup.boolean().oneOf([true], 'Terms is required').required('Terms is required'),
+  // .test('fileSize', 'File size is too large (max 2MB)', (value) => {
+  //   // if (!value) return false;
+  //   // const file = value as File;
+  //   // return file.size <= 2 * 1024 * 1024;
+  //   return value && value.size <= ; // 2MB
+  // }),
+  // .test('fileType', 'Unsupported file format (only PNG and JPEG)', (value) => {
+  //   // if (!value) return false;
+  //   // const file = value as File;
+  //   // return ['image/jpeg', 'image/png'].includes(file.type);
+  //   return value && ['image/png', 'image/jpeg', 'image/jpg'].includes(value.type);
+  // }),
+  terms: yup
+    .boolean()
+    .oneOf([true], 'Terms is required')
+    .required('Terms is required'),
   // terms: yup
   // .boolean()
   // .oneOf([true], 'Terms is required')

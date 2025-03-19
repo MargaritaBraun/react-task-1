@@ -59,7 +59,7 @@ const UncontrolledForm: FC = () => {
             ? 'woman'
             : null
         : fieldName === 'terms'
-          ? termsRef.current?.checked // Теперь это просто булево значение
+          ? termsRef.current?.checked
           : refs[fieldName]?.current?.value;
 
     console.log('country', contriesRef.current?.value);

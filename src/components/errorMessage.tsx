@@ -1,12 +1,12 @@
-import { FC } from "react";
+import { FC } from 'react';
 import formStyles from '../styles/form.module.css';
 
 export interface ErrorMessageProps {
-    message: string;
-  }
+  message: string;
+}
 
-  const ErrorMessage: FC<ErrorMessageProps> = ({ message }) => {
-    return <p className={formStyles.textError}>{message}</p>;
+const ErrorMessage: FC<ErrorMessageProps> = ({ message }) => {
+  return <p className={formStyles.textError}>{message}</p>;
 };
 
 export default ErrorMessage;

@@ -26,7 +26,6 @@ export const formSlice = createSlice({
   },
 });
 
-
 export const { addUncontrForm, setCountres, addHooksFormData } =
   formSlice.actions;
 
