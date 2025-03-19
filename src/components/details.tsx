@@ -1,3 +1,5 @@
+// import { useState } from "react";
+
 interface DetailProps {
   nameText: string;
   textareaValue: string;
@@ -9,6 +11,7 @@ const DetailsComponents = ({
   textareaValue,
   onCloseClick,
 }: DetailProps) => {
+  // const [url, setUrl] = useState();
   return (
     <div>
       <h3>Details</h3>
@@ -16,6 +19,9 @@ const DetailsComponents = ({
       <p>Name: {nameText}</p>
       <p>Text: </p>
       <p>{textareaValue}</p>
+      {/* <Upload onUpload={setUrl}>
+      <img src={url} alt="" />
+    </Upload> */}
     </div>
   );
 };

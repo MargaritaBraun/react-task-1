@@ -38,3 +38,19 @@
   font-size: 16px;
   color: rgb(42, 143, 243);
 }
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  overflow: hidden;
+  border-radius: 30px;
+  margin: 0 auto;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}

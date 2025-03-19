@@ -10,7 +10,8 @@
   flex-direction: column;
   gap: 5px;
   border: 3px darkblue dotted;
-  height: 50svh;
+  min-height: 50svh;
+  height: 100%;
   border-radius: 8px;
   padding: 10px 5px;
   width: 100%;
@@ -38,10 +39,24 @@
   position: relative;
 }
 
+.textarea {
+  flex-basis: 30%;
+  height: 30px;
+}
+
 .radio {
   color: brown;
 }
 
+.checkbox {
+  color: hotpink;
+  width: 20px;
+  height: 40px;
+}
+
+.checkbox:checked {
+  color: hotpink;
+}
 .div {
   display: flex;
   align-items: center;

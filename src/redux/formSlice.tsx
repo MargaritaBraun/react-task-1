@@ -2,12 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import FormState from '../types/formState';
 import FormData from '../types/formType';
 import { RootState } from './store';
+import contries from './contries';
 
 const initialState: FormState = {
   unformsData: [],
-  countries: [],
+  countries: contries,
   hooksformsData: [],
-}
+};
 
 export const formSlice = createSlice({
   name: 'form',
@@ -25,8 +26,11 @@ export const formSlice = createSlice({
   },
 });
 
-export const { addUncontrForm, setCountres, addHooksFormData } = formSlice.actions;
 
-export const selectUnformsData = (state: RootState) => state.controlledForm.unformsData;
+export const { addUncontrForm, setCountres, addHooksFormData } =
+  formSlice.actions;
+
+export const selectUnformsData = (state: RootState) =>
+  state.controlledForm.unformsData;
 
 export default formSlice.reducer;

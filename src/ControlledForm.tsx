@@ -1,4 +1,4 @@
-import formStyles from './form.module.css';
+import formStyles from './styles/form.module.css';
 import { ComponentProps, useState, MouseEvent } from 'react';
 import DetailsComponents from './components/details';
 

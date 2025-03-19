@@ -1,55 +1,22 @@
-import formStyles from './form.module.css';
+import formStyles from './styles/form.module.css';
 import { useState, MouseEvent, FC, useRef } from 'react';
 import * as yup from 'yup';
 import { addUncontrForm } from './redux/formSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FormData from './types/formType';
-
-const passwordSchema = yup
-  .string()
-  .min(8, 'Password is too short')
-  .matches(/[0-9]/, 'Password must contain a number')
-  .matches(/[a-z]/, 'Password must contain a lowercase letter')
-  .matches(/[A-Z]/, 'Password must contain an uppercase letter')
-  .matches(/[\W_]/, 'Password must contain a special character')
-  .required('Password is required');
-
-const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required('Name is required')
-    .matches(/^[A-Z].*/, 'Name must start with a capital letter'),
-  age: yup.number().positive('Age is not positive').required('Age is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: passwordSchema,
-  repeatPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Repeat password is required'),
-  gender: yup.string().required('Gender is required'),
-  textarea: yup.string().required('Textarea is required'),
-});
-
-interface ErrorMessageProps {
-  message: string;
-}
-
-const ErrorMessage: FC<ErrorMessageProps> = ({ message }) => {
-  return <p className={formStyles.textError}>{message}</p>;
-};
-
-interface FormErrors {
-  name?: string;
-  age?: string;
-  email?: string;
-  password?: string;
-  repeatPassword?: string;
-  gender?: string;
-  textarea?: string;
-}
+import convertToBase64 from './utils/converTo64Image';
+import { useNavigate } from 'react-router';
+import schema from './utils/validSchema';
+import FormErrors from './types/formErrors';
+import ErrorMessage from './components/errorMessage';
+import { RootState } from './redux/store';
 
 const UncontrolledForm: FC = () => {
   const dispatch = useDispatch();
+  const contries: string[] = useSelector(
+    (state: RootState) => state.controlledForm.countries
+  );
+  const navigate = useNavigate();
   const nameRef = useRef<HTMLInputElement | null>(null);
   const ageRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -59,7 +26,11 @@ const UncontrolledForm: FC = () => {
     useRef<HTMLInputElement | null>(null),
     useRef<HTMLInputElement | null>(null),
   ];
+  const imageRef = useRef<HTMLInputElement | null>(null);
+  const termsRef = useRef<HTMLInputElement | null>(null);
+  const contriesRef = useRef<HTMLInputElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState<boolean>(false);
@@ -74,6 +45,9 @@ const UncontrolledForm: FC = () => {
       email: emailRef,
       password: passwordRef,
       repeatPassword: repeatPasswordRef,
+      image: imageRef,
+      terms: termsRef,
+      country: contriesRef,
       textarea: textareaRef,
     };
 
@@ -84,8 +58,11 @@ const UncontrolledForm: FC = () => {
           : genderRefs[1].current?.checked
             ? 'woman'
             : null
-        : refs[fieldName]?.current?.value;
+        : fieldName === 'terms'
+          ? termsRef.current?.checked // Теперь это просто булево значение
+          : refs[fieldName]?.current?.value;
 
+    console.log('country', contriesRef.current?.value);
     try {
       await schema.validateAt(fieldName, { [fieldName]: value });
       setErrors((prevErrors) => ({ ...prevErrors, [fieldName]: undefined }));
@@ -103,6 +80,22 @@ const UncontrolledForm: FC = () => {
     event.preventDefault();
     setErrors({});
 
+    const imageFile = imageRef.current?.files?.[0];
+
+    const funImage = async (imageFile: File | undefined) => {
+      if (imageFile) {
+        try {
+          const base64Image = await convertToBase64(imageFile);
+          return base64Image;
+        } catch (error) {
+          console.error('Error converting image to Base64:', error);
+        }
+      }
+      return 'none image';
+    };
+
+    const base64Image = await funImage(imageFile);
+
     const formData: FormData = {
       name: nameRef.current?.value || '',
       age: Number(ageRef.current?.value) || 0,
@@ -114,6 +107,9 @@ const UncontrolledForm: FC = () => {
         : genderRefs[1].current?.checked
           ? 'woman'
           : 'no select',
+      image: base64Image,
+      terms: termsRef.current?.checked || false,
+      country: contriesRef.current?.value || '',
       textarea: textareaRef.current?.value || '',
     };
 
@@ -121,6 +117,7 @@ const UncontrolledForm: FC = () => {
       await schema.validate(formData, { abortEarly: false });
       dispatch(addUncontrForm(formData));
       console.log('Form submitted successfully:', formData);
+      navigate('/', { replace: true });
     } catch (validationErrors) {
       if (validationErrors instanceof yup.ValidationError) {
         const formattedErrors: FormErrors = {};
@@ -239,14 +236,59 @@ const UncontrolledForm: FC = () => {
           </div>
 
           <label className={formStyles.label}>
+            <span className={formStyles.labelSpan}>Image</span>
+            <input
+              type="file"
+              ref={imageRef}
+              accept="image/png,image/jpeg,image/jpg"
+              className={formStyles.input}
+              onChange={() => validateField('image')}
+            />
+          </label>
+          {errors.image && <ErrorMessage message={errors.image as string} />}
+
+          <label className={formStyles.label}>
+            <span className={formStyles.labelSpan}>
+              Terms and Conditions agreement
+            </span>
+            <input
+              type="checkbox"
+              ref={termsRef}
+              className={formStyles.checkbox}
+              onChange={() => validateField('terms')}
+            />
+          </label>
+          {errors.terms && <ErrorMessage message={errors.terms} />}
+
+          <label className={formStyles.label} htmlFor="country">
+            <span className={formStyles.labelSpan}>Сountry</span>
+            <input
+              ref={contriesRef}
+              list="options"
+              placeholder="Alabama"
+              className={formStyles.input}
+              id="country"
+              onChange={() => validateField('country')}
+            ></input>
+            <datalist id="options">
+              {contries &&
+                contries.map((item) => (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                ))}
+            </datalist>
+          </label>
+          {errors.country && <ErrorMessage message={errors.country} />}
+          <label className={formStyles.label}>
             <span className={formStyles.labelSpan}>Textarea</span>
             <textarea
+              className={`${formStyles.textarea} ${formStyles.input}`}
               ref={textareaRef}
               onChange={() => validateField('textarea')}
             ></textarea>
           </label>
           {errors.textarea && <ErrorMessage message={errors.textarea} />}
-
           <button className={formStyles.button} type="submit">
             Submit
           </button>
