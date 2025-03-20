@@ -3,7 +3,7 @@ import Card from './card';
 import EmptyContainer from './emptyContainer';
 
 const resultContainer = (props: { data: Country[] }) => {
-    const { data } = props;
+  const { data } = props;
   return (
     <>
       {data.length > 0 ? (
