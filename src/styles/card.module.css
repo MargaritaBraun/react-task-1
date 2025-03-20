@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+}
+
+/* .image-block {
+    display: flex;
+    width: 50px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.flag-image {
+    display: flex;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+} */

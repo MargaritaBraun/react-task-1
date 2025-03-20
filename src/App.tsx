@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { useEffect, useState } from 'react';
+// import Card from './components/card';
+import Country from './types/country';
+import Loader from './components/loading';
+import ResultContainer from './components/resultContainer';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  // const [data, setDate] = useState<Country[] | null>(null);
+  const [data, setDate] = useState<Country[]>([]);
+  useEffect(() => {
+    const fetchDATA = async () => {
+      try {
+        const datafetch = await fetch('https://restcountries.com/v3.1/all');
+        const res = await datafetch.json();
+        setDate(res);
+      } catch (error) {
+        console.error(error);
+      }
+      // ((error) => console.log(error));
+    };
+    fetchDATA();
+    // .then((res) => res.json())
+    // .then((data) => setDate(data))
+    // const dataJson = await datafetch.json();
+    // datafetch();
+  }, []);
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1>Country</h1>
+      <div className="container">
+        {/* {data && data.map((item) => (
+          <Card key={item.ccn3} {...item} />
+        ))} */}
+        <Loader />
+        <ResultContainer {...{ data }} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
