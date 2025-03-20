@@ -7,7 +7,8 @@ const resultContainer = (props: { data: Country[] }) => {
   return (
     <>
       {data.length > 0 ? (
-        data.map((item) => <Card key={item.ccn3} {...item} />)
+        // item.ccn3
+        data.map((item) => <Card key={item.cca2} {...item} />)
       ) : (
         <EmptyContainer />
       )}

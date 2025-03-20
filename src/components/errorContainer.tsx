@@ -1,4 +1,8 @@
-const ErrorContainer = (message: string) => {
+interface ErrorContainerProps {
+  message: string; // Определяем интерфейс для пропсов
+}
+
+const ErrorContainer = ({ message }: ErrorContainerProps) => {
   return (
     <>
       <p>Opps Error</p>

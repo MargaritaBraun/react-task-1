@@ -1,5 +1,7 @@
+import Country from '../types/country';
+
 interface answerState {
-  data: [];
+  data: Country[];
   loader: boolean;
   error: null | string;
 }
