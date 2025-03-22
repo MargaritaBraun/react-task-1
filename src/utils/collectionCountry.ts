@@ -23,7 +23,7 @@ const collectionCountry = (item: string, isCheck: boolean): boolean => {
   }
 
   const newArr = JSON.stringify([...arr]);
-    window.localStorage.setItem(keyInlocalStorage, newArr);
-    return true;
+  window.localStorage.setItem(keyInlocalStorage, newArr);
+  return true;
 };
 export default collectionCountry;

@@ -4,6 +4,7 @@
   justify-content: space-around;
   margin: 5px 0;
   align-items: center;
+  cursor: pointer;
 }
 
 .part {
