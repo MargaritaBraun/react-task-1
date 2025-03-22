@@ -1,5 +1,11 @@
 import './App.css';
-import { ChangeEventHandler, useEffect, useState } from 'react';
+import {
+  ChangeEventHandler,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from 'react';
 import Country from './types/country';
 import Loader from './components/loading';
 import ResultContainer from './components/resultContainer';
@@ -11,20 +17,20 @@ import { RegionValuesType } from './types/region';
 import quckSortByPopulation from './utils/sortByPopulation';
 
 type Status = 'loading' | 'good' | 'error';
+
 function App() {
-  const [data, setDate] = useState<Country[]>([]);
   const [dataALL, setDataALL] = useState<Country[]>([]);
   const [status, setStatys] = useState<Status>('loading');
   const [region, setRegion] = useState('No select');
   const [search, setSearch] = useState('');
   const [sortByPopulation, setsortByPopulation] = useState('none');
+
   useEffect(() => {
     const fetchDATA = async () => {
       const result = await DataFetcher();
       if (result.error) {
         setStatys('error');
       } else {
-        setDate(result.data);
         setDataALL(result.data);
         setStatys('good');
       }
@@ -32,7 +38,7 @@ function App() {
     fetchDATA();
   }, []);
 
-  useEffect(() => {
+  const sortedData: Country[] = useMemo(() => {
     let filteredData = [...dataALL];
 
     if (region !== 'No select') {
@@ -50,7 +56,6 @@ function App() {
 
     if (sortByPopulation !== 'none') {
       if (sortByPopulation === 'ascending') {
-        // const sorted = filteredData.sort((a, b) => a.population - b.population);
         const sorted = quckSortByPopulation(
           filteredData,
           'population',
@@ -58,7 +63,6 @@ function App() {
         );
         filteredData = sorted;
       } else if (sortByPopulation === 'descending') {
-        // const sorted = filteredData.sort((a, b) => b.population - a.population);
         const sorted = quckSortByPopulation(
           filteredData,
           'population',
@@ -67,36 +71,28 @@ function App() {
         filteredData = sorted;
       }
     }
-    setDate(() => filteredData);
-  }, [region, search, sortByPopulation]);
+    return filteredData;
+  }, [dataALL, region, search, sortByPopulation]);
 
-  // const filterRegion = (valueRegion: RegionValuesType) => {
-  //   const copyData = [...data];
-  //   copyData.filter((item) => item.region === valueRegion);
-  //   return copyData;
-  // }
+  const handlerRegionFilter: ChangeEventHandler<HTMLSelectElement> =
+    useCallback((event) => {
+      const newValue = event.target.value as RegionValuesType;
+      setRegion(() => newValue);
+    }, []);
 
-  const handlerRegionFilter: ChangeEventHandler<HTMLSelectElement> = (
-    event
-  ) => {
-    const newValue = event.target.value as RegionValuesType;
-    console.log('newValue', newValue);
-    setRegion(() => newValue);
-    console.log('region', region);
-  };
+  const handlerSearchFilter: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      const newValue = event.target.value;
+      setSearch(newValue);
+    },
+    []
+  );
 
-  const handlerSearchFilter: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const newValue = event.target.value;
-    console.log('search', newValue);
-    setSearch(newValue);
-  };
-
-  const handlersortByPopulationFilter: ChangeEventHandler<HTMLSelectElement> = (
-    event
-  ) => {
-    const newValue = event.target.value;
-    setsortByPopulation(() => newValue);
-  };
+  const handlersortByPopulationFilter: ChangeEventHandler<HTMLSelectElement> =
+    useCallback((event) => {
+      const newValue = event.target.value;
+      setsortByPopulation(() => newValue);
+    }, []);
 
   return (
     <>
@@ -106,7 +102,6 @@ function App() {
         {status === 'error' && <ErrorContainer message="Error is lost" />}
         {status === 'good' && (
           <>
-            {/* <FilterContainer /> */}
             <div>
               <label className={stylesFilter.label}>
                 <span className={stylesFilter.labelSpan}>Region</span>
@@ -155,7 +150,7 @@ function App() {
                 </select>
               </label>
             </div>
-            <ResultContainer {...{ data }} />
+            <ResultContainer {...{ sortedData }} />
           </>
         )}
       </div>
