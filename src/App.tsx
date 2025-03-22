@@ -8,14 +8,16 @@ import ErrorContainer from './components/errorContainer';
 import stylesFilter from './styles/filters.module.css';
 import regionValues from './types/region';
 import { RegionValuesType } from './types/region';
+import quckSortByPopulation from './utils/sortByPopulation';
 
 type Status = 'loading' | 'good' | 'error';
 function App() {
   const [data, setDate] = useState<Country[]>([]);
   const [dataALL, setDataALL] = useState<Country[]>([]);
   const [status, setStatys] = useState<Status>('loading');
-  const [region, setRegion] = useState('');
+  const [region, setRegion] = useState('No select');
   const [search, setSearch] = useState('');
+  const [sortByPopulation, setsortByPopulation] = useState('none');
   useEffect(() => {
     const fetchDATA = async () => {
       const result = await DataFetcher();
@@ -31,16 +33,32 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const filteredData = [...dataALL];
-    if (region === 'No select' || region === '') {
-      // setDate(() => filteredData);
-      return;
-    } else {
+    let filteredData = [...dataALL];
+
+    if (region !== 'No select') {
       const newdata = filteredData.filter((item) => item.region === region);
-      setDate(() => newdata);
+      filteredData = newdata;
     }
-    // setDate(filteredData);
-  }, [region, data]);
+
+    if (search !== '' || !search) {
+      const reger = new RegExp(`^${search}`, 'i')
+      const newData = filteredData.filter((item) => reger.test(item.name.common.toLowerCase()));
+      filteredData = newData;
+    }
+
+    if (sortByPopulation !== 'none') {
+      if (sortByPopulation === 'ascending') {
+        // const sorted = filteredData.sort((a, b) => a.population - b.population);
+        const sorted = quckSortByPopulation(filteredData, 'population', 'ascending');
+        filteredData = sorted;
+      } else if (sortByPopulation === 'descending') {
+        // const sorted = filteredData.sort((a, b) => b.population - a.population);
+        const sorted = quckSortByPopulation(filteredData, 'population', 'descending');
+        filteredData = sorted;
+      }
+    }
+    setDate(() => filteredData);
+  }, [region, search, sortByPopulation]);
 
   // const filterRegion = (valueRegion: RegionValuesType) => {
   //   const copyData = [...data];
@@ -51,19 +69,21 @@ function App() {
   const handlerRegionFilter: ChangeEventHandler<HTMLSelectElement> = (
     event
   ) => {
-    const newValue: RegionValuesType = event.target.value;
+    const newValue = event.target.value as RegionValuesType;
     console.log('newValue', newValue);
-    // setRegion(newValue);
     setRegion(() => newValue);
     console.log('region', region);
-    // const newData = filterRegion(newValue);
-    // setDate(newData);
   };
 
   const handlerSearchFilter: ChangeEventHandler<HTMLInputElement> = (event) => {
     const newValue = event.target.value;
     console.log('search', newValue);
     setSearch(newValue);
+  };
+
+  const handlersortByPopulationFilter: ChangeEventHandler<HTMLSelectElement> = (event) => {
+    const newValue = event.target.value;
+    setsortByPopulation(() => newValue);
   };
 
   return (
@@ -81,6 +101,7 @@ function App() {
                 <select
                   className={stylesFilter.select}
                   onChange={handlerRegionFilter}
+                  value={region}
                 >
                   {regionValues.map((item) => (
                     <option
@@ -102,6 +123,20 @@ function App() {
                   className={stylesFilter.inputText}
                 ></input>
               </label>
+
+              <label className={stylesFilter.label}>
+                <span className={stylesFilter.labelSpan}>Population</span>
+                <select
+                  className={stylesFilter.select}
+                  onChange={handlersortByPopulationFilter}
+                  value={sortByPopulation}
+                >
+                  <option className={stylesFilter.option} value='none'>None</option>
+                  <option className={stylesFilter.option} value='ascending'>Ascending</option>
+                  <option className={stylesFilter.option} value='descending'>Descending</option>
+                  </select>
+              </label>
+
             </div>
             <ResultContainer {...{ data }} />
           </>

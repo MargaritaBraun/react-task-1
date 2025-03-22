@@ -11,9 +11,9 @@ const Card = (data: Country) => {
       <div className="image-block">
         <img className="flag-image" src={png} alt={alt ? alt : common}></img>
       </div>
-      <p className="">{common}</p>
-      <p>{population}</p>
-      <p>{region}</p>
+      <p className={styles.part}>{common}</p>
+      <p className={styles.part}>{population}</p>
+      <p className={styles.part}>{region}</p>
     </div>
   );
 };

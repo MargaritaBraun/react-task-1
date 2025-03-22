@@ -1,10 +1,10 @@
 const RegionValues = [
   'No select',
-  'Antarctic',
-  'Americas',
-  'Europe',
   'Africa',
+  'Americas',
+  'Antarctic',
   'Asia',
+  'Europe',
   'Oceania',
 ] as const;
 

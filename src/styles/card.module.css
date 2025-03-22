@@ -1,7 +1,14 @@
 .container {
   display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
+.part {
+  flex-basis: 25%;
+  color: darkorchid;
+  font-size: 20px;
+}
 /* .image-block {
     display: flex;
     width: 50px;

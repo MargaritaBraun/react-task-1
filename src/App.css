@@ -18,3 +18,14 @@
   justify-content: center;
   flex-direction: column;
 }
+
+.block-table {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.block-table p {
+  font-size: 2rem;
+  color: rgb(12, 201, 201);
+}
