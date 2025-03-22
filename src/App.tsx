@@ -41,19 +41,29 @@ function App() {
     }
 
     if (search !== '' || !search) {
-      const reger = new RegExp(`^${search}`, 'i')
-      const newData = filteredData.filter((item) => reger.test(item.name.common.toLowerCase()));
+      const reger = new RegExp(`^${search}`, 'i');
+      const newData = filteredData.filter((item) =>
+        reger.test(item.name.common.toLowerCase())
+      );
       filteredData = newData;
     }
 
     if (sortByPopulation !== 'none') {
       if (sortByPopulation === 'ascending') {
         // const sorted = filteredData.sort((a, b) => a.population - b.population);
-        const sorted = quckSortByPopulation(filteredData, 'population', 'ascending');
+        const sorted = quckSortByPopulation(
+          filteredData,
+          'population',
+          'ascending'
+        );
         filteredData = sorted;
       } else if (sortByPopulation === 'descending') {
         // const sorted = filteredData.sort((a, b) => b.population - a.population);
-        const sorted = quckSortByPopulation(filteredData, 'population', 'descending');
+        const sorted = quckSortByPopulation(
+          filteredData,
+          'population',
+          'descending'
+        );
         filteredData = sorted;
       }
     }
@@ -81,7 +91,9 @@ function App() {
     setSearch(newValue);
   };
 
-  const handlersortByPopulationFilter: ChangeEventHandler<HTMLSelectElement> = (event) => {
+  const handlersortByPopulationFilter: ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     const newValue = event.target.value;
     setsortByPopulation(() => newValue);
   };
@@ -131,12 +143,17 @@ function App() {
                   onChange={handlersortByPopulationFilter}
                   value={sortByPopulation}
                 >
-                  <option className={stylesFilter.option} value='none'>None</option>
-                  <option className={stylesFilter.option} value='ascending'>Ascending</option>
-                  <option className={stylesFilter.option} value='descending'>Descending</option>
-                  </select>
+                  <option className={stylesFilter.option} value="none">
+                    None
+                  </option>
+                  <option className={stylesFilter.option} value="ascending">
+                    Ascending
+                  </option>
+                  <option className={stylesFilter.option} value="descending">
+                    Descending
+                  </option>
+                </select>
               </label>
-
             </div>
             <ResultContainer {...{ data }} />
           </>

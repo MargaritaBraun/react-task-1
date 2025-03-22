@@ -6,7 +6,7 @@ const resultContainer = (props: { data: Country[] }) => {
   const { data } = props;
   return (
     <>
-      <div className='block-table'>
+      <div className="block-table">
         <p>Flag</p>
         <p>Name</p>
         <p>Population</p>
