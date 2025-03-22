@@ -10,7 +10,6 @@ const DataFetcher = async () => {
   const answer: answerState = {
     data: [],
     loader: true,
-    // error: false,
     error: null,
   };
   const urlGetAllData = 'https://restcountries.com/v3.1/all';

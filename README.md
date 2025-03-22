@@ -17,23 +17,23 @@ Sorting Population (ascending/descending)
 **Update the App with React.memo and useMemo**
 
 - **Parameters to Check:**
+
   - **Commit Duration:** 1.5s
   - **Render Duration:** 5.8ms
   - **Interactions:** App
   - **Flamegraph:**
     ![Flamegraph](./public/after_flamegraph.png)
     - **App Flamegraph:**
-    ![Flamegraph](./public/after_flame-app.png)
+      ![Flamegraph](./public/after_flame-app.png)
   - **Ranked**
     ![Ranked](./public/after_ranked.png)
   - **Timeline:**
     ![Ranked Chart](./public/after_timeline.png)
 
-    After optimizations 
-
-
+    After optimizations
 
 **Key Improvements**
+
 - Commit Duration Reduced by 46%: From 2.8s to 1.5s.
 
 - Render Duration Reduced by 64%: From 16.2ms to 5.8ms.

@@ -1,5 +1,5 @@
 interface ErrorContainerProps {
-  message: string; // Определяем интерфейс для пропсов
+  message: string;
 }
 
 const ErrorContainer = ({ message }: ErrorContainerProps) => {

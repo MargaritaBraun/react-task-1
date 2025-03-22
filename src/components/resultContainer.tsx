@@ -13,7 +13,6 @@ const resultContainer = (props: { sortedData: Country[] }) => {
         <p>Region</p>
       </div>
       {sortedData.length > 0 ? (
-        // item.ccn3
         sortedData.map((item) => <Card key={item.cca2} {...item} />)
       ) : (
         <EmptyContainer />
