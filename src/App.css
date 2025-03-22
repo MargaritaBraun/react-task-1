@@ -29,3 +29,9 @@
   font-size: 2rem;
   color: rgb(12, 201, 201);
 }
+
+.active-card {
+  background-color: rgba(243, 10, 224, 0.352);
+  border: green 2px solid;
+  border-radius: 13px;
+}
