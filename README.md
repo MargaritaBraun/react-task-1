@@ -1,50 +1,44 @@
-# React + TypeScript + Vite
+# React Performance
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Initial Profiling with React Dev Tools Profiler**
+Sorting Population (ascending/descending)
 
-Currently, two official plugins are available:
+- **Parameters to Check:**
+  - **Commit Duration:** 2.8s
+  - **Render Duration:** 16.2ms
+  - **Interactions:** App
+  - **Flamegraph:**
+    ![Flamegraph](./public/before_flamegraph.jpg)
+  - **Ranked**
+    ![Ranked](./public/before_ranked.png)
+  - **Timeline:**
+    ![Ranked Chart](./public/before_timeline.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Update the App with React.memo and useMemo**
 
-## Expanding the ESLint configuration
+- **Parameters to Check:**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  - **Commit Duration:** 1.5s
+  - **Render Duration:** 5.8ms
+  - **Interactions:** App
+  - **Flamegraph:**
+    ![Flamegraph](./public/after_flamegraph.png)
+    - **App Flamegraph:**
+      ![Flamegraph](./public/after_flame-app.png)
+  - **Ranked**
+    ![Ranked](./public/after_ranked.png)
+  - **Timeline:**
+    ![Ranked Chart](./public/after_timeline.png)
 
-- Configure the top-level `parserOptions` property like this:
+    After optimizations
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+**Key Improvements**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Commit Duration Reduced by 46%: From 2.8s to 1.5s.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Render Duration Reduced by 64%: From 16.2ms to 5.8ms.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Fewer Unnecessary Re-renders: By using React.memo, useCallback, and useMemo, the number of re-renders was significantly reduced, improving overall performance.
+
+**Conclusion**
+The optimizations, including the use of React.memo for card components, useCallback for event handlers, and useMemo for data filtering and sorting, halved the rendering time of components. These changes resulted in a smoother user experience and more efficient resource utilization.

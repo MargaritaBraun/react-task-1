@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  color: rgb(218, 131, 32);
+  width: 300px;
+  height: 300px;
+  animation: 3s linear 0s infinite alternate rise;
+}
+
+@keyframes rise {
+  from {
+    color: rgb(218, 131, 32);
+  }
+  to {
+    color: rgb(244, 218, 188);
+  }
+}

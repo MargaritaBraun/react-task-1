@@ -1,0 +1,28 @@
+.label {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.labelSpan {
+  font-size: 2rem;
+  color: green;
+}
+
+.inputText {
+  border: 2px rgb(3, 176, 199) solid;
+  border-radius: 8px;
+  font-size: 20px;
+  padding: 5px;
+  color: rgb(179, 0, 255);
+  position: relative;
+}
+
+.select {
+  border: 2px rgb(3, 176, 199) solid;
+  border-radius: 8px;
+  font-size: 20px;
+  padding: 5px;
+  color: rgb(179, 0, 255);
+}

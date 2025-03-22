@@ -1,3 +1,18 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -15,11 +30,12 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #ff64ed;
   text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  color: #73f253;
 }
 
 body {
@@ -42,12 +58,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #df1cdb;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #bc64ff;
 }
 button:focus,
 button:focus-visible {
